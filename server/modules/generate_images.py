@@ -18,7 +18,7 @@ seeds = [19775,19698,19704,19368,19328,19317,19083,19001,18897,
     1279,1284,1210,1151,1068,757,
     724,699,504
     ]
-
+# 10このランダムな画像と、画像のseed値情報を返します
 def generate10Image(model,device):
     #dimを10個作る
     #seed値情報を記録する
@@ -34,14 +34,12 @@ def generate10Image(model,device):
         z2 = np.random.randn(1,512*16)
 
         r = random.random()
-        print(r)
         #潜在変数を混ぜる
         z = z1*r + z2*(1.0-r)
         dims.append(np.clip(z,-1.,1.))
         weights[i] = {double_seed[0] : r,
                       double_seed[1] : (1.0-r)}
 
-    print(weights)
     for z in dims:
         z = torch.from_numpy(z.astype(np.float32)).to(device)
         dst = model.forward(z, 6)
@@ -54,6 +52,53 @@ def generate10Image(model,device):
         dst = np.clip(dst*255., 0, 255).astype(np.uint8)
         dst = cv2.cvtColor(dst, cv2.COLOR_BGR2RGB)
         imgs.append(dst)
-        cv2.imwrite(f'C:/Users/kosakae256/Documents/Kosakae-Deployment/awareshe/tmp/tintin.jpg', dst)
 
     return imgs,weights
+#weightsに従って、潜在変数を動かした動画を作成します。返り値は動画のpath
+def generateLatentMovie(weight,model,device):
+    #全画像をimgnumを参考に生成
+  images = []
+  for i in range(0,len(shift)-1):
+    images_temp = makeimgs(shift[i],shift[i+1],inum)
+    for im in images_temp[:-1]:
+      images.append(im)
+
+  #imagesを基にgifを作成
+  clip = ImageSequenceClip(images, fps = fps)
+  clip.write_videofile(f'/content/drive/MyDrive/GANstudy/PGGAN/animations/{filename}')
+
+
+def makeimgs(weight,model,device):
+    for key in weight:
+        weight[key].keys()[0]
+        np.random.seed(seed=s)
+        z = np.random.randn(1,512*16)
+        np.random.seed(seed=e)
+        z2 = np.random.randn(1,512*16)
+        z = np.concatenate([z,z2],axis = 0)
+        z = np.clip(z,-1.,1.)
+
+    startdim = z[0]
+    enddim = z[1]
+    images = []
+    alphaValues = np.linspace(0, 1, num)
+
+  #値をすこしずつshift
+    for alpha in alphaValues:
+        vectors = []
+        dim = startdim*(1-alpha) + enddim * alpha
+        vectors.append(dim)
+        vectors = np.array(vectors)
+        vectors = torch.from_numpy(vectors.astype(np.float32)).to(device)
+        dst = netG_mavg.forward(vectors, 6)
+        dst = F.interpolate(dst, (256, 256), mode='nearest')
+        dst = dst.to('cpu').detach().numpy()
+        n, c, h, w = dst.shape
+        dst = dst.reshape(c,h,w)
+        dst = dst.transpose(1,2,0)
+
+        dst = np.clip(dst*255., 0, 255).astype(np.uint8)
+        images.append(dst)
+
+    #shift画像が256x256xRGBで返ります
+    return images
