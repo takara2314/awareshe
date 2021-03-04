@@ -3,7 +3,7 @@ import Top from '../components/Top';
 import Select10 from '../components/Select10';
 
 const Root = () => {
-  const [process, setProcess] = useState<string>('select10');
+  const [process, setProcess] = useState<string>('none');
 
   // ロード時とリサイズ時に、ブラウザザイズをフルにする
   useEffect(() => {
