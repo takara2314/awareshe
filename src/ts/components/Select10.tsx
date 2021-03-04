@@ -30,7 +30,7 @@ const Select10 = (props: ServiceProps) => {
 
   return (
     <>
-      <section className="flex flex-row justify-between w-72 mx-auto my-8 select-none">
+      <section className="flex flex-row justify-between w-72 mx-auto mt-4 mb-8 select-none">
         <h1 className="text-6xl font-bold text-white">
           1
         </h1>

@@ -28,7 +28,7 @@ const Root = () => {
     return (
       process == 'none'
       ? 'text-lg overflow-x-hidden relative'
-      : 'flex flex-col bg-red-500 text-lg text-white overflow-hidden'
+      : 'flex flex-col justify-center bg-red-500 text-lg text-white overflow-hidden'
     );
   }
 
