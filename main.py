@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 from server.modules import model,generate_images
+from server.modules.seeds import seeds
+
 import torch
 import cv2
 import numpy as np
@@ -10,7 +12,7 @@ from moviepy.editor import ImageSequenceClip
 
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, jsonify
 
-app = Flask(__name__ , template_folder="dist")
+app = Flask(__name__ , template_folder="dist",static_folder="dist")
 UPLOAD_FOLDER = './tmp/'
 filepath = os.path.dirname(__file__)
 now = datetime.datetime.now().strftime('%Y-%m-%d')
