@@ -33,8 +33,8 @@ def generate10Image(model,device,seeds):
         #潜在変数を混ぜる
         z = z1*r + z2*(1.0-r)
         dims.append(z)
-        weights[i] = {double_seed[0] : r,
-                      double_seed[1] : (1.0-r)}
+        weights[i] = [double_seed[0] , r,
+                      double_seed[1] , (1.0-r)]
 
     for z in dims:
         z = torch.from_numpy(z.astype(np.float32)).to(device)

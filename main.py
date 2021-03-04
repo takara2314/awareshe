@@ -33,10 +33,16 @@ def r10ImgsAndWeights():
         r = random.randint(0,999999999999999999999)
         tempimg_filename = f'img{now}-{r}'
         cv2.imwrite(f'{UPLOAD_FOLDER}images/{tempimg_filename}.jpg', imgs[i])
-        json[f'{tempimg_filename}'] = weights[i]
-    print(json)
+        json[f'img{i}'] = {"path" : tempimg_filename,
+                           "seed1" : weights[i][0],
+                           "seed2" : weights[i][2],
+                           "weight1" : weights[i][1],
+                           "weight2" : weights[i][3]
+                           }
+
     return jsonify(json)
 
+#
 @app.route('/getmovie',methods=['POST'])
 def rMp4():
     if request.method != 'POST':
