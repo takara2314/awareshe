@@ -2,3 +2,4 @@
 /dist/bundle.js.map
 /dist/styles.css.map
 package-lock.json
+.venv/Lib
