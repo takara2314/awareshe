@@ -3,19 +3,22 @@ import React from 'react';
 const Top = () => {
   return (
     <>
-      <section className="bg-red-500 text-white text-2xl h-32 mb-5">
-        <h1 className="font-bold text-3xl">
+      <section className="rounded-full bg-red-500 w-4096 h-4096 absolute -top-3968 minus-circle-50vw">
+      </section>
+
+      <section className="w-full text-white text-2xl text-center h-128 mb-5 absolute top-0">
+        <h1 className="font-bold text-6xl mt-32">
           AwareShe
         </h1>
-        <div>
+        <div className="mt-4">
           AIによって生み出された彼女の写真
         </div>
-        <button>
+        <button className="mt-36">
           生み出してみる
         </button>
       </section>
 
-      <section className="text-lg">
+      <section className="text-lg mt-128 pt-12">
         <div>
           <h1 className="font-bold text-2xl">
             AwareShe とは

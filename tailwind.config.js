@@ -11,6 +11,15 @@ module.exports = {
     extend: {
       fontFamily: {
         'sans': ['Inter', 'Meiryo', 'sans-serif']
+      },
+      spacing: {
+        '128': '32rem',
+        '144': '36rem',
+        '512': '128rem',
+        '1024': '256rem',
+        '2048': '512rem',
+        '3968': '992rem',
+        '4096': '1024rem',
       }
     }
   },
