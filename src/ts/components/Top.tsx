@@ -1,6 +1,7 @@
 import React from 'react';
+import ServiceProps from '../models/ServiceProps';
 
-const Top = () => {
+const Top = (props: ServiceProps) => {
   const sampleImgs: string[][] = [
     ["生成サンプル1", "../public/images/sample1.webp"],
     ["生成サンプル2", "../public/images/sample2.webp"],
@@ -21,12 +22,17 @@ const Top = () => {
         <div className="mt-4">
           AIによって生み出された彼女の写真
         </div>
-        <button className="bg-red-800 mt-36 text-white font-bold px-8 py-3 rounded-xl focus:outline-none">
+        <button
+          className="bg-red-800 mt-36 text-white font-bold px-8 py-3 rounded-xl focus:outline-none"
+          onClick={() => {
+            props.changeProcess('select10');
+          }}
+        >
           生み出してみる
         </button>
       </section>
 
-      <section className="w-256 text-lg mt-144 mx-auto">
+      <section className="w-256 mt-144 mx-auto">
         <div className="bg-gray-100 rounded-xl mb-10 p-6">
           <h1 className="font-bold text-2xl text-red-500 mb-2">
             AwareShe とは

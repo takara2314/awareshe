@@ -1,7 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Top from '../components/Top';
+import Select10 from '../components/Select10';
 
 const Root = () => {
+  const [process, setProcess] = useState<string>('select10');
+
   // ロード時とリサイズ時に、ブラウザザイズをフルにする
   useEffect(() => {
     window.addEventListener('load', () => {
@@ -18,11 +21,33 @@ const Root = () => {
     mainObj.current!.style.height = `${window.innerHeight}px`;
   }
 
+  // main要素のクラス
+  const mainElementClass = (): string => {
+    return (
+      process == 'none'
+      ? 'text-lg overflow-x-hidden relative'
+      : 'flex flex-col bg-red-500 text-lg text-white overflow-hidden'
+    );
+  }
+
   const mainObj: React.RefObject<HTMLElement> = useRef<HTMLElement>(null);
 
   return (
-    <main className="overflow-x-hidden relative" ref={mainObj}>
-      <Top />
+    <main className={mainElementClass()} ref={mainObj}>
+      {process == 'none'
+        ? <Top
+            process={process}
+            changeProcess={setProcess}
+          />
+        : <></>
+      }
+      {process == 'select10'
+        ? <Select10
+            process={process}
+            changeProcess={setProcess}
+          />
+        : <></>
+      }
     </main>
   )
 }
