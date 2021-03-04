@@ -65,7 +65,7 @@ const Select10 = (props: ServiceProps) => {
         for (let i = 0; i < 10; i++) {
           tempSelect10Imgs[i] = [
             `サンプル画像${i+1}`,
-            result[`img${i}`].path
+            `http://localhost:5000/tmp/images/${result[`img${i}`].path}.jpg`
           ];
           tempSelect10Seeds[i] = [
             result[`img${i}`].seed1,
