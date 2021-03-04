@@ -10,13 +10,16 @@ import datetime
 import random
 from moviepy.editor import ImageSequenceClip
 
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, jsonify
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, jsonify, make_response
+from flask_cors import CORS
 
 app = Flask(__name__ , template_folder="dist",static_folder="dist")
 UPLOAD_FOLDER = './tmp/'
 filepath = os.path.dirname(os.path.abspath(__file__))
 print(filepath)
 now = datetime.datetime.now().strftime('%Y-%m-%d')
+
+CORS(app)
 
 @app.route('/')
 def index():
@@ -40,7 +43,7 @@ def r10ImgsAndWeights():
                            "weight2" : weights[i][3]
                            }
 
-    return jsonify(json)
+    return make_response(jsonify(json))
 
 #
 @app.route('/getmovie',methods=['POST'])
