@@ -21,7 +21,7 @@ const Root = () => {
   const mainObj: React.RefObject<HTMLElement> = useRef<HTMLElement>(null);
 
   return (
-    <main className="overflow-hidden relative" ref={mainObj}>
+    <main className="overflow-x-hidden relative" ref={mainObj}>
       <Top />
     </main>
   )
