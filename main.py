@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from server.modules import model,generate_images
 import torch
 import cv2
@@ -11,6 +12,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 app = Flask(__name__)
 UPLOAD_FOLDER = './tmp/images/'
 filepath = os.path.dirname(__file__)
+now = datetime.datetime.now().strftime('%Y-%m-%d')
 
 @app.route('/')
 def index():
@@ -21,7 +23,6 @@ def index():
 def r10ImgsAndWeights():
     #10枚の画像と、重みを返す。重みは{{seed1:weight1, seed2:weight2},...}
     imgs,weights = generate_images.generate10Image(netG,device)
-    now = datetime.datetime.now().strftime('%Y-%m-%d')
     json = {}
 
     for i in range(0,len(imgs)):
@@ -40,13 +41,21 @@ def rMp4():
     generate_images.generateLatentMovie(weightjson,netG,device)
 
 
-
-
-
 if __name__ == "__main__":
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     filepath = os.path.dirname(__file__)
     netG = model.Generator().to(device)
     netG.load_state_dict(torch.load(f'{filepath}/server/model/modelparam_5.pth' , map_location=torch.device(device)))
+    weight = {
+    "p" : {
+           19775 : 1,
+           19698 : 0
+          },
+    "s" :    {
+           19704 :  1,
+           19368 : 0
+          }
+    }
+    generate_images.generateLatentMovie(weight,netG,device)
 
     app.run()
