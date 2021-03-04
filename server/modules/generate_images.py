@@ -67,15 +67,13 @@ def generateLatentMovie(weight,model,device):
 def makeimgs(weight,model,device):
     dims = []
     for key in weight:
-        zs = []
-        for key2 in weight[key]:
-            np.random.seed(seed=key2)
-            z = np.random.randn(1,512*16)
-            z = np.clip(z,-1.,1.)
-            z = z * weight[key][key2]
-            zs.append(z)
-        zs = np.array(zs)
-        z = zs[0] + zs[1]
+        np.random.seed(seed=weight[key]["seed1"])
+        z = np.random.randn(1,512*16)
+        z = np.clip(z,-1.,1.)
+        np.random.seed(seed=weight[key]["seed2"])
+        z2 = np.random.randn(1,512*16)
+        z2 = np.clip(z,-1.,1.)
+        z = (z * weight[key]["weight1"]) + (z2 * weight[key]["weight2"])
         dims.append(z)
     startdim = dims[0]
     enddim = dims[1]
