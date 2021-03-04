@@ -64,20 +64,5 @@ if __name__ == "__main__":
     filepath = os.path.dirname(__file__)
     netG = model.Generator().to(device)
     netG.load_state_dict(torch.load(f'{filepath}/server/model/modelparam_5.pth' , map_location=torch.device(device)))
-    """
-    weight = {
-    "p" : {
-           19775 : 1,
-           19698 : 0
-          },
-    "s" :    {
-           19704 :  1,
-           19368 : 0
-          }
-    }
 
-    generate_images.generateLatentMovie(weight,netG,device)
-    """
-    getF = generate_images.getFrame("C:/Users/kosakae256/Documents/Kosakae-Deployment/awareshe/tmp/videos/aaa.mp4",0)
-    cv2.imwrite("C:/Users/kosakae256/Documents/Kosakae-Deployment/awareshe/tmp/images/test.jpg", getF)
     app.run()
