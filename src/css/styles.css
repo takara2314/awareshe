@@ -38,4 +38,8 @@
     font-weight: 100;
 }
 
+.minus-circle-50vw {
+    left: calc(-512rem + 50vw);
+}
+
 @tailwind utilities;

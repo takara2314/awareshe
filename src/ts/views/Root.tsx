@@ -1,7 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Top from '../components/Top';
+import Select10 from '../components/Select10';
 
 const Root = () => {
+  const [process, setProcess] = useState<string>('none');
+
   // ロード時とリサイズ時に、ブラウザザイズをフルにする
   useEffect(() => {
     window.addEventListener('load', () => {
@@ -18,32 +21,34 @@ const Root = () => {
     mainObj.current!.style.height = `${window.innerHeight}px`;
   }
 
+  // main要素のクラス
+  const mainElementClass = (): string => {
+    return (
+      process == 'none'
+      ? 'text-lg overflow-x-hidden relative'
+      : 'flex flex-col bg-red-500 text-lg text-white overflow-hidden'
+    );
+  }
+
   const mainObj: React.RefObject<HTMLElement> = useRef<HTMLElement>(null);
 
   return (
-    <main ref={mainObj}>
-      <Top />
+    <main className={mainElementClass()} ref={mainObj}>
+      {process == 'none'
+        ? <Top
+            process={process}
+            changeProcess={setProcess}
+          />
+        : <></>
+      }
+      {process == 'select10'
+        ? <Select10
+            process={process}
+            changeProcess={setProcess}
+          />
+        : <></>
+      }
     </main>
-    // <main className="flex flex-col items-center justify-around text-4xl bg-red-500 text-white text-center w-full h-full">
-    //   <h1 className="text-6xl font-bold">
-    //     AwareShe
-    //   </h1>
-    //   <section>
-    //     <p>
-    //       乞うご期待…
-    //     </p>
-    //     <p className="text-2xl text-gray-100">
-    //       <a href="https://twitter.com/takara2314">
-    //         takara2314
-    //       </a>
-    //     </p>
-    //     <p className="text-2xl text-gray-100">
-    //       <a href="https://twitter.com/kosakae256">
-    //         kosakae256
-    //       </a>
-    //     </p>
-    //   </section>
-    // </main>
   )
 }
 
