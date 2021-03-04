@@ -19,7 +19,18 @@ filepath = os.path.dirname(os.path.abspath(__file__))
 print(filepath)
 now = datetime.datetime.now().strftime('%Y-%m-%d')
 
+# CORSの許可
 CORS(app)
+
+# tmpフォルダーを実質静的フォルダーに
+@app.route('/tmp/<path:path>')
+def send_tmp(path):
+    return send_from_directory('tmp', path)
+
+# publicフォルダーを実質静的フォルダーに
+@app.route('/public/<path:path>')
+def send_public(path):
+    return send_from_directory('public', path)
 
 @app.route('/')
 def index():
