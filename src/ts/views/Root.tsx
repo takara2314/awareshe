@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Top from '../components/Top';
 import Select10 from '../components/Select10';
+import Select30 from '../components/Select30';
+import Result from '../components/Result';
 
 const Root = () => {
-  const [process, setProcess] = useState<string>('none');
+  const [process, setProcess] = useState<string>('select30');
 
   // ロード時とリサイズ時に、ブラウザザイズをフルにする
   useEffect(() => {
@@ -43,6 +45,20 @@ const Root = () => {
       }
       {process == 'select10'
         ? <Select10
+            process={process}
+            changeProcess={setProcess}
+          />
+        : <></>
+      }
+      {process == 'select30'
+        ? <Select30
+            process={process}
+            changeProcess={setProcess}
+          />
+        : <></>
+      }
+      {process == 'result'
+        ? <Result
             process={process}
             changeProcess={setProcess}
           />
