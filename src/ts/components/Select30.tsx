@@ -6,46 +6,56 @@ const Select30 = (props: ServiceProps) => {
   const selectFrameObj: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
   const seekbarObj: React.RefObject<HTMLInputElement> = useRef<HTMLInputElement>(null);
 
+  // フレームの初期値は15
   useEffect(() => {
     selectFrameObj.current!.value = '15';
     seekbarObj.current!.value = '15';
     changeVideoFrame(15);
   }, []);
 
+  // テキストでフレームを変更するときの時の処理
   const textFrameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     seekbarObj.current!.value = e.target.value;
     changeVideoFrame(Number(e.target.value));
   }
 
+  // テキストボックスからフォーカスが離れたとき、不適切なものが入ってたら初期値にする
+  const selectFrameCheck = (e: React.FocusEvent<HTMLInputElement>): void => {
+    // フレーム最大値より大きい値が指定されたら
+    if (Number(e.target.value) > 30) {
+      selectFrameObj.current!.value = '30';
+      seekbarObj.current!.value = '30';
+    // フレーム最小値より小さい値が指定されたら
+    } else if (Number(e.target.value) < 1) {
+      selectFrameObj.current!.value = '1';
+      seekbarObj.current!.value = '1';
+    // 数値以外が混じってたら
+    } else if (Number.isNaN(Number(e.target.value))) {
+      selectFrameObj.current!.value = '15';
+      seekbarObj.current!.value = '15';
+    }
+  }
+
+  // シークバーでフレームを変更するときの処理
   const seekFrameChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
     selectFrameObj.current!.value = e.target.value;
     changeVideoFrame(Number(e.target.value));
   }
 
+  // 特定のフレームの位置に動画の再生位置を置く
   const changeVideoFrame = (frame: number): void => {
+    // フレーム最大値より大きい値が指定されたら
     if (frame > 30) {
       videoObj.current!.currentTime = 30 / 30;
+    // フレーム最小値より小さい値が指定されたら
     } else if (frame < 1) {
       videoObj.current!.currentTime = 1 / 30;
+    // 数値以外が混じっていたら
     } else if (Number.isNaN(frame)) {
       videoObj.current!.currentTime = 15 / 30;
+    // 値に問題がなかったら
     } else {
       videoObj.current!.currentTime = frame / 30;
-    }
-  }
-
-  const selectFrameCheck = (e: React.FocusEvent<HTMLInputElement>): void => {
-    if (Number(e.target.value) > 30) {
-      selectFrameObj.current!.value = '30';
-      seekbarObj.current!.value = '30';
-
-    } else if (Number(e.target.value) < 1) {
-      selectFrameObj.current!.value = '1';
-      seekbarObj.current!.value = '1';
-
-    } else if (Number.isNaN(Number(e.target.value))) {
-      selectFrameObj.current!.value = '15';
-      seekbarObj.current!.value = '15';
     }
   }
 
@@ -67,7 +77,7 @@ const Select30 = (props: ServiceProps) => {
         <h1 className="font-bold text-3xl">
           変化工程から好きな1枚を選ぼう！
         </h1>
-        1枚1枚微妙な違いがあるよ！シークバーを動かして見てみよう！
+        選んだ2枚から彼女を生み出したよ！シークバーを動かして、彼女が変化するところを見よう！
       </section>
 
       <section className="w-11/12 h-128 bg-white mx-auto mt-6 p-6 rounded-xl flex flex-col justify-center items-center">
