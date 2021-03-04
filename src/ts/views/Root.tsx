@@ -5,7 +5,7 @@ import Select30 from '../components/Select30';
 import Result from '../components/Result';
 
 const Root = () => {
-  const [process, setProcess] = useState<string>('select30');
+  const [process, setProcess] = useState<string>('select10');
 
   // ロード時とリサイズ時に、ブラウザザイズをフルにする
   useEffect(() => {
@@ -28,7 +28,7 @@ const Root = () => {
     return (
       process == 'none'
       ? 'text-lg overflow-x-hidden relative'
-      : 'flex flex-col bg-red-500 text-lg text-white overflow-hidden'
+      : 'flex flex-col justify-center bg-red-500 text-lg text-white overflow-hidden'
     );
   }
 

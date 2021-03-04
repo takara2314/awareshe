@@ -1,7 +1,9 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ServiceProps from '../models/ServiceProps';
+import getSamples from '../services/getSamples';
 
 const Select10 = (props: ServiceProps) => {
+  // 画像と関連付けられているシード値と強さ
   const [select10Imgs, setSelect10Imgs] = useState<string[][]>([
     ['サンプル画像1', '../public/images/sample1.webp'],
     ['サンプル画像2', '../public/images/sample1.webp'],
@@ -14,7 +16,6 @@ const Select10 = (props: ServiceProps) => {
     ['サンプル画像9', '../public/images/sample1.webp'],
     ['サンプル画像10', '../public/images/sample1.webp']
   ]);
-
   const [select10Seeds, setSelect10Seeds] = useState<number[][]>([
     [10.0, 10.0],
     [10.0, 10.0],
@@ -27,10 +28,71 @@ const Select10 = (props: ServiceProps) => {
     [10.0, 10.0],
     [10.0, 10.0]
   ]);
+  const [select10Weights, setSelect10Weights] = useState<number[][]>([
+    [10.0, 10.0],
+    [10.0, 10.0],
+    [10.0, 10.0],
+    [10.0, 10.0],
+    [10.0, 10.0],
+    [10.0, 10.0],
+    [10.0, 10.0],
+    [10.0, 10.0],
+    [10.0, 10.0],
+    [10.0, 10.0]
+  ]);
+
+  // サンプル画像をロードしたかを収納
+  const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+  // ページを読み込んだら、サンプルをロード
+  useEffect(() => {
+    loadSamples();
+  }, []);
+
+  // サンプルをサーバーから取得し、表示する画像集などに記録
+  const loadSamples = (): void => {
+    getSamples()
+    .then(res => res.json())
+    .then(
+      (result: any) => {
+        // デバッグ
+        console.log(result);
+
+        const tempSelect10Imgs: string[][] = Array(10);
+        const tempSelect10Seeds: number[][] = Array(10);
+        const tempSelect10Weights: number[][] = Array(10);
+
+        for (let i = 0; i < 10; i++) {
+          tempSelect10Imgs[i] = [
+            `サンプル画像${i+1}`,
+            result[`img${i}`].path
+          ];
+          tempSelect10Seeds[i] = [
+            result[`img${i}`].seed1,
+            result[`img${i}`].seed2
+          ];
+          tempSelect10Weights[i] = [
+            result[`img${i}`].weight1,
+            result[`img${i}`].weight2
+          ];
+        }
+
+        // ロードしたものを格納
+        setSelect10Imgs(tempSelect10Imgs);
+        setSelect10Seeds(tempSelect10Seeds);
+        setSelect10Weights(tempSelect10Weights);
+        // ロードが終了したことを記録
+        setIsLoaded(true);
+      },
+      (error: Error) => {
+        console.log(error);
+      }
+    );
+  }
 
   return (
     <>
-      <section className="flex flex-row justify-between w-72 mx-auto my-8 select-none">
+      <section className="flex flex-row justify-between w-72 mx-auto mt-4 mb-8 select-none">
         <h1 className="text-6xl font-bold text-white">
           1
         </h1>
@@ -53,11 +115,16 @@ const Select10 = (props: ServiceProps) => {
         <ul className="w-full h-full grid grid-cols-5 justify-items-center items-center">
           {select10Imgs.map((item: string[], index: number) =>
             <li key={index}>
-              <img
-                src={item[1]}
-                alt={item[0]}
-                className="w-40"
-              />
+              {isLoaded
+                ? <img
+                    src={item[1]}
+                    alt={item[0]}
+                    className="w-40"
+                  />
+                : <div
+                    className="animate-pulse bg-pink-500 w-40 h-40"
+                  />
+              }
             </li>
           )}
         </ul>
@@ -67,7 +134,8 @@ const Select10 = (props: ServiceProps) => {
         <button
           className="text-white font-bold mx-auto rounded-xl focus:outline-none"
           onClick={() => {
-            console.log('まだないよ！');
+            setIsLoaded(false);
+            loadSamples();
           }}
         >
           再生成する
