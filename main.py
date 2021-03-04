@@ -14,7 +14,8 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 
 app = Flask(__name__ , template_folder="dist",static_folder="dist")
 UPLOAD_FOLDER = './tmp/'
-filepath = os.path.dirname(__file__)
+filepath = os.path.dirname(os.path.abspath(__file__))
+print(filepath)
 now = datetime.datetime.now().strftime('%Y-%m-%d')
 
 @app.route('/')
@@ -25,7 +26,7 @@ def index():
 @app.route('/get10image', methods = ['POST'])
 def r10ImgsAndWeights():
     #10枚の画像と、重みを返す。重みは{{seed1:weight1, seed2:weight2},...}
-    imgs,weights = generate_images.generate10Image(netG,device)
+    imgs,weights = generate_images.generate10Image(netG,device,seeds)
     json = {}
 
     for i in range(0,len(imgs)):

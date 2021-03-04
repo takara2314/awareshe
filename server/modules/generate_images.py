@@ -11,9 +11,9 @@ import os.path
 
 
 num = 20 #動画の画像枚数
-filepath = os.path.dirname(__file__)
+filepath = os.path.dirname(os.path.abspath(__file__))
 # 10このランダムな画像と、画像のseed値情報を返します
-def generate10Image(model,device):
+def generate10Image(model,device,seeds):
     #dimを10個作る
     #seed値情報を記録する
     weights = {}
