@@ -44,6 +44,15 @@ const Select10 = (props: ServiceProps) => {
   // サンプル画像をロードしたかを収納
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
+  // 選んだ画像のインデックスと個数
+  const [selects, setSelects] = useState<number[]>([-1, -1]);
+  const [selectNum, setSelectNum] = useState<number>(0);
+
+  // 選択しているか否か
+  const [selecting, setSelecting] = useState<boolean[]>([
+    false, false, false, false, false, false, false, false, false, false,
+  ]);
+
   // ページを読み込んだら、サンプルをロード
   useEffect(() => {
     loadSamples();
@@ -90,6 +99,18 @@ const Select10 = (props: ServiceProps) => {
     );
   }
 
+  // 画像選択時に行う処理
+  const selectHandler = (index: number): void => {
+    const temp: boolean[] = Array(10);
+
+    for (let i = 0; i < 10; i++) {
+      temp[i] = selecting[i];
+    }
+
+    temp[index] = !selecting[index];
+    setSelecting(temp);
+  }
+
   return (
     <>
       <section className="flex flex-row justify-between w-72 mx-auto mt-4 mb-8 select-none">
@@ -119,7 +140,11 @@ const Select10 = (props: ServiceProps) => {
                 ? <img
                     src={item[1]}
                     alt={item[0]}
-                    className="w-40"
+                    className={selecting[index]
+                      ? "w-40 border-4 border-pink-500"
+                      : "w-40"
+                    }
+                    onClick={() => {selectHandler(index)}}
                   />
                 : <div
                     className="animate-pulse bg-pink-500 w-40 h-40"
