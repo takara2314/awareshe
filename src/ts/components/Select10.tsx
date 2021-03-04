@@ -1,7 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import ServiceProps from '../models/ServiceProps';
+import getSamples from '../services/getSamples';
 
 const Select10 = (props: ServiceProps) => {
+  useEffect(() => {
+    getSamples()
+    .then(res => res.json())
+    .then(
+      (result: any) => {
+        console.log(result);
+      },
+      (error: Error) => {
+        console.log(error);
+      }
+    );
+  }, []);
+
   const [select10Imgs, setSelect10Imgs] = useState<string[][]>([
     ['サンプル画像1', '../public/images/sample1.webp'],
     ['サンプル画像2', '../public/images/sample1.webp'],
