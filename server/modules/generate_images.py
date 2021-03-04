@@ -21,7 +21,6 @@ seeds = [19775,19698,19704,19368,19328,19317,19083,19001,18897,
     ]
 
 num = 20 #動画の画像枚数
-UPLOAD_FOLDER = './tmp/movies/'
 filepath = os.path.dirname(__file__)
 # 10このランダムな画像と、画像のseed値情報を返します
 def generate10Image(model,device):
@@ -61,7 +60,7 @@ def generate10Image(model,device):
         imgs.append(dst)
 
     return imgs,weights
-#weightsに従って、潜在変数を動かした動画を作成します。返り値は動画のpath
+#weightsに従って、潜在変数を動かした動画を作成します。返り値は動画
 def generateLatentMovie(weight,model,device):
     #全画像をimgnumを参考に生成
     images = []
@@ -72,7 +71,7 @@ def generateLatentMovie(weight,model,device):
     #imagesを基にgifを作成
 
     clip=ImageSequenceClip(images,fps=20)
-    clip.write_videofile(f'{UPLOAD_FOLDER}aaa.mp4')
+    return clip
 
 
 def makeimgs(weight,model,device):
@@ -113,3 +112,10 @@ def makeimgs(weight,model,device):
 
     #shift画像が256x256xRGBで返ります
     return dst
+
+
+def getFrame(path,frame_num):
+    cap_file = cv2.VideoCapture(path)
+    cap_file.set(cv2.CAP_PROP_POS_FRAMES, frame_num)
+    ret, frame = cap_file.read()
+    return frame
