@@ -9,7 +9,7 @@ import random
 
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, jsonify
 
-app = Flask(__name__)
+app = Flask(__name__ , template_folder="dist")
 UPLOAD_FOLDER = './tmp/images/'
 filepath = os.path.dirname(__file__)
 now = datetime.datetime.now().strftime('%Y-%m-%d')
