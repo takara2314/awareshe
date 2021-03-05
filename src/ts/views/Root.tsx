@@ -68,6 +68,9 @@ const Root = () => {
   // 選択したフレーム数
   const [videoFrame, setVideoFrame] = useState<number>(15);
 
+  // 完成した画像のパス
+  const [framePath, setFramePath] = useState<string>('');
+
   // サンプルをサーバーから取得し、表示する画像集などに記録
   const loadSamples = (): void => {
     getSamples()
@@ -176,6 +179,9 @@ const Root = () => {
 
             videoFrame={videoFrame}
             setVideoFrame={setVideoFrame}
+
+            framePath={framePath}
+            setFramePath={setFramePath}
           />
         : <></>
       }
@@ -209,6 +215,9 @@ const Root = () => {
 
             videoFrame={videoFrame}
             setVideoFrame={setVideoFrame}
+
+            framePath={framePath}
+            setFramePath={setFramePath}
           />
         : <></>
       }
@@ -242,6 +251,9 @@ const Root = () => {
 
             videoFrame={videoFrame}
             setVideoFrame={setVideoFrame}
+
+            framePath={framePath}
+            setFramePath={setFramePath}
           />
         : <></>
       }
@@ -275,6 +287,9 @@ const Root = () => {
 
             videoFrame={videoFrame}
             setVideoFrame={setVideoFrame}
+
+            framePath={framePath}
+            setFramePath={setFramePath}
           />
         : <></>
       }
@@ -308,6 +323,9 @@ const Root = () => {
 
             videoFrame={videoFrame}
             setVideoFrame={setVideoFrame}
+
+            framePath={framePath}
+            setFramePath={setFramePath}
           />
         : <></>
       }

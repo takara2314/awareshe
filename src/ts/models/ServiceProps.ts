@@ -28,6 +28,9 @@ interface ServiceProps {
 
   videoFrame:    number;
   setVideoFrame: (videoFrame: number) => void;
+
+  framePath:    string;
+  setFramePath: (framePath: string) => void;
 }
 
 export default ServiceProps;

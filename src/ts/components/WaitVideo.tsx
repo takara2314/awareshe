@@ -8,7 +8,7 @@ const WaitVideo = (props: ServiceProps) => {
     loadMovie();
   }, []);
 
-  // サンプルをサーバーから取得し、表示する画像集などに記録
+  // 動画をサーバーから取得
   const loadMovie = (): void => {
     let postData: GetMoviePost = {
       img1: {

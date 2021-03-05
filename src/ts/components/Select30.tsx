@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import ServiceProps from '../models/ServiceProps';
+import getFrame from '../services/getFrame';
+import GetFramePost from '../models/GetFramePost';
 
 const Select30 = (props: ServiceProps) => {
   const videoObj: React.RefObject<HTMLVideoElement> = useRef<HTMLVideoElement>(null);
@@ -66,6 +68,31 @@ const Select30 = (props: ServiceProps) => {
       props.setVideoFrame(frame);
       videoObj.current!.currentTime = frame / 30;
     }
+  }
+
+  // フレームをサーバーから取得
+  const loadFrame = (): void => {
+    let postData: GetFramePost = {
+      path:  props.videoPath,
+      frame: props.videoFrame - 1
+    };
+
+    console.log(postData);
+
+    getFrame(postData)
+    .then(res => res.text())
+    .then(
+      (result: string) => {
+        // デバッグ
+        console.log(result);
+
+        props.setFramePath(result);
+        props.changeProcess('result');
+      },
+      (error: Error) => {
+        console.log(error);
+      }
+    );
   }
 
   return (
