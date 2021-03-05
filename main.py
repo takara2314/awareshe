@@ -84,7 +84,7 @@ def rMp4():
     file_name = f'{UPLOAD_FOLDER}videos/{tempimg_filename}.mp4'
     clip.write_videofile(file_name)
 
-    return send_file(file_name, mimetype='video/mp4')
+    return file_name
 
 @app.route('/getframe',methods=['POST'])
 def rVideoToFrame():
@@ -98,7 +98,7 @@ def rVideoToFrame():
     file_name = f'{UPLOAD_FOLDER}images/{tempimg_filename}.jpg'
     cv2.imwrite(file_name, img)
 
-    return send_file(file_name, mimetype='image/jpeg')
+    return file_name
 
 
 if __name__ == "__main__":
