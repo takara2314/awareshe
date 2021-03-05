@@ -25,6 +25,7 @@ const Top = (props: ServiceProps) => {
         <button
           className="bg-red-800 mt-36 text-white font-bold px-8 py-3 rounded-xl focus:outline-none"
           onClick={() => {
+            props.setIsLoadRequest(true);
             props.changeProcess('select10');
           }}
         >

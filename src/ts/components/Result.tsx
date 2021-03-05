@@ -32,6 +32,7 @@ const Result = (props: ServiceProps) => {
           className="text-white font-bold mx-auto rounded-xl focus:outline-none"
           onClick={() => {
             props.changeProcess('select30');
+            props.loadSamples();
           }}
         >
           選び直す

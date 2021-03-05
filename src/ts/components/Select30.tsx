@@ -8,9 +8,9 @@ const Select30 = (props: ServiceProps) => {
 
   // フレームの初期値は15
   useEffect(() => {
-    selectFrameObj.current!.value = '15';
-    seekbarObj.current!.value = '15';
-    changeVideoFrame(15);
+    selectFrameObj.current!.value = props.videoFrame.toString();
+    seekbarObj.current!.value = props.videoFrame.toString();
+    changeVideoFrame(props.videoFrame);
   }, []);
 
   // テキストでフレームを変更するときの時の処理
@@ -25,14 +25,16 @@ const Select30 = (props: ServiceProps) => {
     if (Number(e.target.value) > 30) {
       selectFrameObj.current!.value = '30';
       seekbarObj.current!.value = '30';
+
     // フレーム最小値より小さい値が指定されたら
     } else if (Number(e.target.value) < 1) {
       selectFrameObj.current!.value = '1';
       seekbarObj.current!.value = '1';
+
     // 数値以外が混じってたら
     } else if (Number.isNaN(Number(e.target.value))) {
-      selectFrameObj.current!.value = '15';
-      seekbarObj.current!.value = '15';
+      selectFrameObj.current!.value = props.videoFrame.toString();
+      seekbarObj.current!.value = props.videoFrame.toString();
     }
   }
 
@@ -46,15 +48,22 @@ const Select30 = (props: ServiceProps) => {
   const changeVideoFrame = (frame: number): void => {
     // フレーム最大値より大きい値が指定されたら
     if (frame > 30) {
+      props.setVideoFrame(30);
       videoObj.current!.currentTime = 30 / 30;
+
     // フレーム最小値より小さい値が指定されたら
     } else if (frame < 1) {
+      props.setVideoFrame(1);
       videoObj.current!.currentTime = 1 / 30;
+
     // 数値以外が混じっていたら
     } else if (Number.isNaN(frame)) {
+      props.setVideoFrame(props.videoFrame);
       videoObj.current!.currentTime = 15 / 30;
+
     // 値に問題がなかったら
     } else {
+      props.setVideoFrame(frame);
       videoObj.current!.currentTime = frame / 30;
     }
   }

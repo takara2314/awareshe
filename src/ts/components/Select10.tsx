@@ -1,114 +1,36 @@
 import React, {useEffect, useState} from 'react';
 import ServiceProps from '../models/ServiceProps';
-import getSamples from '../services/getSamples';
 
 const Select10 = (props: ServiceProps) => {
-  // 画像と関連付けられているシード値と強さ
-  const [select10Imgs, setSelect10Imgs] = useState<string[][]>([
-    ['サンプル画像1', '../public/images/sample1.webp'],
-    ['サンプル画像2', '../public/images/sample1.webp'],
-    ['サンプル画像3', '../public/images/sample1.webp'],
-    ['サンプル画像4', '../public/images/sample1.webp'],
-    ['サンプル画像5', '../public/images/sample1.webp'],
-    ['サンプル画像6', '../public/images/sample1.webp'],
-    ['サンプル画像7', '../public/images/sample1.webp'],
-    ['サンプル画像8', '../public/images/sample1.webp'],
-    ['サンプル画像9', '../public/images/sample1.webp'],
-    ['サンプル画像10', '../public/images/sample1.webp']
-  ]);
-  const [select10Seeds, setSelect10Seeds] = useState<number[][]>([
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0]
-  ]);
-  const [select10Weights, setSelect10Weights] = useState<number[][]>([
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0],
-    [10.0, 10.0]
-  ]);
-
-  // サンプル画像をロードしたかを収納
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
-  // 選んだ画像のインデックスと個数
-  const [selects, setSelects] = useState<number[]>([-1, -1]);
-  const [selectNum, setSelectNum] = useState<number>(0);
-
-  // 選択しているか否か
-  const [selecting, setSelecting] = useState<boolean[]>([
-    false, false, false, false, false, false, false, false, false, false,
-  ]);
-
-  // ページを読み込んだら、サンプルをロード
+  // ロードリクエストが入っていたら、最初にロードする
   useEffect(() => {
-    loadSamples();
+    if (props.isLoadRequest) {
+      props.loadSamples();
+    }
+    props.setIsLoadRequest(false);
   }, []);
-
-  // サンプルをサーバーから取得し、表示する画像集などに記録
-  const loadSamples = (): void => {
-    getSamples()
-    .then(res => res.json())
-    .then(
-      (result: any) => {
-        // デバッグ
-        console.log(result);
-
-        const tempSelect10Imgs: string[][] = Array(10);
-        const tempSelect10Seeds: number[][] = Array(10);
-        const tempSelect10Weights: number[][] = Array(10);
-
-        for (let i = 0; i < 10; i++) {
-          tempSelect10Imgs[i] = [
-            `サンプル画像${i+1}`,
-            `http://localhost:5000/tmp/images/${result[`img${i}`].path}.jpg`
-          ];
-          tempSelect10Seeds[i] = [
-            result[`img${i}`].seed1,
-            result[`img${i}`].seed2
-          ];
-          tempSelect10Weights[i] = [
-            result[`img${i}`].weight1,
-            result[`img${i}`].weight2
-          ];
-        }
-
-        // ロードしたものを格納
-        setSelect10Imgs(tempSelect10Imgs);
-        setSelect10Seeds(tempSelect10Seeds);
-        setSelect10Weights(tempSelect10Weights);
-        // ロードが終了したことを記録
-        setIsLoaded(true);
-      },
-      (error: Error) => {
-        console.log(error);
-      }
-    );
-  }
 
   // 画像選択時に行う処理
   const selectHandler = (index: number): void => {
-    const temp: boolean[] = Array(10);
+    let tempNum: number = 0;
+    const tempArray: boolean[] = Array(10);
 
     for (let i = 0; i < 10; i++) {
-      temp[i] = selecting[i];
+      tempArray[i] = props.isSelecting[i];
+      // もし選択されている状態なら、選択数をインクリメント
+      if (tempArray[i]) {
+        tempNum++;
+      }
     }
 
-    temp[index] = !selecting[index];
-    setSelecting(temp);
+    tempArray[index] = !props.isSelecting[index];
+    // もし選択するのであれば、選択数をインクリメント
+    if (tempArray[index]) {
+      tempNum++;
+    }
+
+    props.setSelectedNum(tempNum);
+    props.setIsSelecting(tempArray);
   }
 
   return (
@@ -134,15 +56,15 @@ const Select10 = (props: ServiceProps) => {
 
       <section className="w-11/12 h-128 bg-white mx-auto mt-6 rounded-xl">
         <ul className="w-full h-full grid grid-cols-5 justify-items-center items-center">
-          {select10Imgs.map((item: string[], index: number) =>
+          {props.select10Imgs.map((item: string[], index: number) =>
             <li key={index}>
-              {isLoaded
+              {props.isLoadedSamples
                 ? <img
                     src={item[1]}
                     alt={item[0]}
-                    className={selecting[index]
-                      ? "w-40 border-4 border-pink-500"
-                      : "w-40"
+                    className={props.isSelecting[index]
+                      ? "w-44 border-8 border-pink-500"
+                      : "w-44 border-8 border-white"
                     }
                     onClick={() => {selectHandler(index)}}
                   />
@@ -159,20 +81,38 @@ const Select10 = (props: ServiceProps) => {
         <button
           className="text-white font-bold mx-auto rounded-xl focus:outline-none"
           onClick={() => {
-            setIsLoaded(false);
-            loadSamples();
+            props.setIsLoadedSamples(false);
+            props.loadSamples();
           }}
         >
           再生成する
         </button>
 
         <button
-          className="w-60 h-10 bg-red-800 text-white font-bold rounded-xl focus:outline-none"
+          className={props.selectedNum == 2
+            ? "w-60 h-10 bg-red-800 text-white font-bold rounded-xl focus:outline-none"
+            : "w-60 h-10 bg-gray-800 text-white font-bold rounded-xl focus:outline-none"
+          }
           onClick={() => {
             props.changeProcess('select30');
           }}
         >
-          この2枚にする
+          {props.selectedNum == 0
+            ? "あと2枚選択しよう"
+            : ""
+          }
+          {props.selectedNum == 1
+            ? "あと1枚選択しよう"
+            : ""
+          }
+          {props.selectedNum == 2
+            ? "この2枚にする"
+            : ""
+          }
+          {props.selectedNum > 2
+            ? "2枚だけ選ぼう"
+            : ""
+          }
         </button>
       </section>
     </>
