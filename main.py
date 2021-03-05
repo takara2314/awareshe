@@ -59,7 +59,6 @@ def r10ImgsAndWeights():
     for i in range(0,len(imgs)):
         tempimg_filename = randomName()
         cv2.imwrite(f'{UPLOAD_FOLDER}images/{tempimg_filename}.jpg', imgs[i])
-        print(weights)
         json[f'img{i}'] = {"path" : tempimg_filename,
                            "seed1" : weights[i][0],
                            "seed2" : weights[i][2],
@@ -75,13 +74,11 @@ def rMp4():
     if request.method != 'POST':
         return 0
     weightjson = request.json
-    print(weightjson)
     clip = generate_images.generateLatentMovie(weightjson,netG,device)
 
     tempimg_filename = randomName()
     file_name = f'{UPLOAD_FOLDER}videos/{tempimg_filename}.mp4'
     clip.write_videofile(file_name)
-    print(file_name)
 
     return file_name
 
