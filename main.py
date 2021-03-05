@@ -10,7 +10,7 @@ import datetime
 import random
 from moviepy.editor import ImageSequenceClip
 
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, jsonify, make_response
+from flask import Flask, render_template, request, redirect, url_for, send_file, send_from_directory, jsonify, make_response
 from flask_cors import CORS
 
 app = Flask(__name__ , template_folder="dist",static_folder="dist")
@@ -32,9 +32,24 @@ def send_tmp(path):
 def send_public(path):
     return send_from_directory('public', path)
 
+# tmp/fontsフォルダーを実質静的フォルダーに
+@app.route('/fonts/<path:path>')
+def send_fonts(path):
+    return send_from_directory('dist/fonts', path)
+
 @app.route('/')
 def index():
     return render_template("index.html")
+
+@app.route('/styles.css')
+def send_css():
+    file = './dist/styles.css'
+    return send_file(file, mimetype='text/css')
+
+@app.route('/bundle.js')
+def send_javascript():
+    file = './dist/bundle.js'
+    return send_file(file, mimetype='text/javascript')
 
 #10枚ランダムリクエスト
 @app.route('/get10image', methods = ['POST'])
