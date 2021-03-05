@@ -93,7 +93,7 @@ def rVideoToFrame():
     img_info = request.json
     r = random.randint(0,999999999999)
     tempimg_filename = f'img{now}-{r}'
-    img = generate_images.getFrame(img_info["path"],img_info["number"]) #指定された番号のimgを返す
+    img = generate_images.getFrame(img_info["path"],img_info["frame"]) #指定された番号のimgを返す
 
     file_name = f'{UPLOAD_FOLDER}images/{tempimg_filename}.jpg'
     cv2.imwrite(file_name, img)
