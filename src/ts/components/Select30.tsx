@@ -70,8 +70,8 @@ const Select30 = (props: ServiceProps) => {
     }
   }
 
-  // フレームをサーバーから取得
-  const loadFrame = (): void => {
+  // フレームをサーバーから取得し、完成画面を表示
+  const select30Handler = (): void => {
     let postData: GetFramePost = {
       path:  props.videoPath,
       frame: props.videoFrame - 1
@@ -166,9 +166,7 @@ const Select30 = (props: ServiceProps) => {
 
         <button
           className="w-60 h-10 bg-red-800 text-white font-bold rounded-xl focus:outline-none"
-          onClick={() => {
-            props.changeProcess('result');
-          }}
+          onClick={() => {select30Handler()}}
         >
           これに決める
         </button>

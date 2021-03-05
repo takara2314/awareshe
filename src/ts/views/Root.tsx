@@ -7,7 +7,7 @@ import Result from '../components/Result';
 import getSamples from '../services/getSamples';
 
 const Root = () => {
-  const [process, setProcess] = useState<string>('select10');
+  const [process, setProcess] = useState<string>('none');
 
   // 画像と関連付けられているシード値と強さ
   const [sample10Imgs, setSample10Imgs] = useState<string[][]>([

@@ -26,12 +26,14 @@ const Result = (props: ServiceProps) => {
         おめでとう！今日から彼女はキミの子だ！
       </section>
 
-      <section className="w-11/12 h-128 bg-white mx-auto mt-6 rounded-xl">
-        <img
-          src={`http://localhost:5000/${props.framePath.slice(2)}`}
-          ref="完成した彼女の写真"
-          className="w-96"
-        />
+      <section className="w-11/12 h-128 bg-white mx-auto mt-6 rounded-xl relative">
+        <div className="w-96 h-96 m-auto absolute inset-0">
+          <img
+            src={`http://localhost:5000/${props.framePath.slice(2)}`}
+            alt="完成した彼女の写真"
+            className="w-96"
+          />
+        </div>
       </section>
 
       <section className="flex flex-row justify-between w-96 h-10 mt-5 mx-auto">
