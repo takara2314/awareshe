@@ -10,7 +10,7 @@ from torch.nn import functional as F
 import os.path
 
 
-num = 20 #動画の画像枚数
+num = 30 #動画の画像枚数
 filepath = os.path.dirname(os.path.abspath(__file__))
 # 10このランダムな画像と、画像のseed値情報を返します
 def generate10Image(model,device,seeds):
@@ -60,7 +60,7 @@ def generateLatentMovie(weight,model,device):
 
     #imagesを基にgifを作成
 
-    clip=ImageSequenceClip(images,fps=20)
+    clip=ImageSequenceClip(images,fps=30)
     return clip
 
 
@@ -68,12 +68,13 @@ def makeimgs(weight,model,device):
     dims = []
     for key in weight:
         np.random.seed(seed=weight[key]["seed1"])
-        z = np.random.randn(1,512*16)
-        z = np.clip(z,-1.,1.)
+        z1 = np.random.randn(1,512*16)
+        z1 = np.clip(z1,-1.,1.)
         np.random.seed(seed=weight[key]["seed2"])
         z2 = np.random.randn(1,512*16)
-        z2 = np.clip(z,-1.,1.)
-        z = (z * weight[key]["weight1"]) + (z2 * weight[key]["weight2"])
+        z2 = np.clip(z2,-1.,1.)
+        #print(weight[key])
+        z = (z1 * weight[key]["weight1"]) + (z2 * weight[key]["weight2"])
         dims.append(z)
     startdim = dims[0]
     enddim = dims[1]
@@ -102,6 +103,7 @@ def makeimgs(weight,model,device):
 
 
 def getFrame(path,frame_num):
+    print(frame_num)
     cap_file = cv2.VideoCapture(path)
     cap_file.set(cv2.CAP_PROP_POS_FRAMES, frame_num)
     ret, frame = cap_file.read()

@@ -16,8 +16,6 @@ from flask_cors import CORS
 app = Flask(__name__ , template_folder="dist",static_folder="dist")
 UPLOAD_FOLDER = './tmp/'
 filepath = os.path.dirname(os.path.abspath(__file__))
-print(filepath)
-now = datetime.datetime.now().strftime('%Y-%m-%d')
 
 # CORSの許可
 CORS(app)
@@ -59,9 +57,9 @@ def r10ImgsAndWeights():
     json = {}
 
     for i in range(0,len(imgs)):
-        r = random.randint(0,999999999999999999999)
-        tempimg_filename = f'img{now}-{r}'
+        tempimg_filename = randomName()
         cv2.imwrite(f'{UPLOAD_FOLDER}images/{tempimg_filename}.jpg', imgs[i])
+        print(weights)
         json[f'img{i}'] = {"path" : tempimg_filename,
                            "seed1" : weights[i][0],
                            "seed2" : weights[i][2],
@@ -77,12 +75,13 @@ def rMp4():
     if request.method != 'POST':
         return 0
     weightjson = request.json
+    print(weightjson)
     clip = generate_images.generateLatentMovie(weightjson,netG,device)
-    r = random.randint(0,999999999999)
 
-    tempimg_filename = f'img{now}-{r}'
+    tempimg_filename = randomName()
     file_name = f'{UPLOAD_FOLDER}videos/{tempimg_filename}.mp4'
     clip.write_videofile(file_name)
+    print(file_name)
 
     return file_name
 
@@ -91,14 +90,19 @@ def rVideoToFrame():
     if request.method != 'POST':
         return 0
     img_info = request.json
-    r = random.randint(0,999999999999)
-    tempimg_filename = f'img{now}-{r}'
     img = generate_images.getFrame(img_info["path"],img_info["frame"]) #指定された番号のimgを返す
 
+    tempimg_filename = randomName()
     file_name = f'{UPLOAD_FOLDER}images/{tempimg_filename}.jpg'
     cv2.imwrite(file_name, img)
 
     return file_name
+
+def randomName():
+    r = random.randint(0,999999999999)
+    now = datetime.datetime.now().strftime('%Y-%m-%d')
+    tempimg_filename = f'img{now}-{r}'
+    return tempimg_filename
 
 
 if __name__ == "__main__":
@@ -106,5 +110,6 @@ if __name__ == "__main__":
     filepath = os.path.dirname(__file__)
     netG = model.Generator().to(device)
     netG.load_state_dict(torch.load(f'{filepath}/server/model/modelparam_5.pth' , map_location=torch.device(device)))
+    print(device)
 
     app.run()
