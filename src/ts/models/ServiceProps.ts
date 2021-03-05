@@ -23,6 +23,9 @@ interface ServiceProps {
   isSelecting:      boolean[];
   setIsSelecting:   (selecting: boolean[]) => void;
 
+  videoPath:    string;
+  setVideoPath: (videoPath: string) => void;
+
   videoFrame:    number;
   setVideoFrame: (videoFrame: number) => void;
 }

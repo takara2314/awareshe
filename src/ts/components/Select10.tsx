@@ -23,24 +23,6 @@ const Select10 = (props: ServiceProps) => {
     // let counter: number = 0;
     for (let i = 0; i < 10; i++) {
       if (tempArray[i]) {
-        // switch (counter) {
-        //   case 0:
-        //     props.setSelects([
-        //       -1, -1
-        //     ]);
-        //     break;
-        //   case 1:
-        //     props.setSelects([
-        //       i, -1
-        //     ]);
-        //   case 2:
-        //     props.setSelects([
-        //       props.selects[0], i
-        //     ]);
-        //     break;
-        // }
-        // counter++
-
         // もし選択されている状態なら、選択数をインクリメント
         tempNum++
       }

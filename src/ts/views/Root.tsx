@@ -62,6 +62,9 @@ const Root = () => {
     false, false, false, false, false, false, false, false, false, false,
   ]);
 
+  // ビデオのパス
+  const [videoPath, setVideoPath] = useState<string>('');
+
   // 選択したフレーム数
   const [videoFrame, setVideoFrame] = useState<number>(15);
 
@@ -168,6 +171,9 @@ const Root = () => {
             isSelecting={isSelecting}
             setIsSelecting={setIsSelecting}
 
+            videoPath={videoPath}
+            setVideoPath={setVideoPath}
+
             videoFrame={videoFrame}
             setVideoFrame={setVideoFrame}
           />
@@ -197,6 +203,9 @@ const Root = () => {
             setSelectedNum={setSelectedNum}
             isSelecting={isSelecting}
             setIsSelecting={setIsSelecting}
+
+            videoPath={videoPath}
+            setVideoPath={setVideoPath}
 
             videoFrame={videoFrame}
             setVideoFrame={setVideoFrame}
@@ -228,6 +237,9 @@ const Root = () => {
             isSelecting={isSelecting}
             setIsSelecting={setIsSelecting}
 
+            videoPath={videoPath}
+            setVideoPath={setVideoPath}
+
             videoFrame={videoFrame}
             setVideoFrame={setVideoFrame}
           />
@@ -258,6 +270,9 @@ const Root = () => {
             isSelecting={isSelecting}
             setIsSelecting={setIsSelecting}
 
+            videoPath={videoPath}
+            setVideoPath={setVideoPath}
+
             videoFrame={videoFrame}
             setVideoFrame={setVideoFrame}
           />
@@ -287,6 +302,9 @@ const Root = () => {
             setSelectedNum={setSelectedNum}
             isSelecting={isSelecting}
             setIsSelecting={setIsSelecting}
+
+            videoPath={videoPath}
+            setVideoPath={setVideoPath}
 
             videoFrame={videoFrame}
             setVideoFrame={setVideoFrame}

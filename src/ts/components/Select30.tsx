@@ -95,7 +95,7 @@ const Select30 = (props: ServiceProps) => {
       <section className="w-11/12 h-128 bg-white mx-auto mt-6 p-6 rounded-xl flex flex-col justify-center items-center">
         <div className="mb-8">
           <video
-            src="../public/sample.mp4"
+            src={`http://localhost:5000/${props.videoPath.slice(2)}`}
             ref={videoObj}
             className="w-96"
           />

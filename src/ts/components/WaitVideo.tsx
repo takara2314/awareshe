@@ -32,26 +32,17 @@ const WaitVideo = (props: ServiceProps) => {
     getMovie(postData)
     .then(res => res.text())
     .then(
-      (result: any) => {
+      (result: string) => {
         // デバッグ
         console.log(result);
+
+        props.setVideoPath(result);
+        props.changeProcess('select30');
       },
       (error: Error) => {
         console.log(error);
       }
     );
-
-    // getMovie(postData)
-    // .then(res => res.json())
-    // .then(
-    //   (result: any) => {
-    //     // デバッグ
-    //     console.log(result);
-    //   },
-    //   (error: Error) => {
-    //     console.log(error);
-    //   }
-    // );
   }
 
   return (
