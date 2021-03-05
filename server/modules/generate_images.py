@@ -96,7 +96,6 @@ def makeimgs(weight,model,device):
     dst = dst.transpose(0,2,3,1)
 
     dst = np.clip(dst*255., 0, 255).astype(np.uint8)
-    cv2.imwrite(f'{UPLOAD_FOLDER}a.jpg', dst[19])
 
     #shift画像が256x256xRGBで返ります
     return dst
