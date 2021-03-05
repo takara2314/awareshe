@@ -6,7 +6,7 @@ import Result from '../components/Result';
 import getSamples from '../services/getSamples';
 
 const Root = () => {
-  const [process, setProcess] = useState<string>('none');
+  const [process, setProcess] = useState<string>('select10');
 
   // 画像と関連付けられているシード値と強さ
   const [select10Imgs, setSelect10Imgs] = useState<string[][]>([
@@ -78,18 +78,26 @@ const Root = () => {
         const tempSelect10Weights: number[][] = Array(10);
 
         for (let i = 0; i < 10; i++) {
-          tempSelect10Imgs[i] = [
-            `サンプル画像${i+1}`,
-            `http://localhost:5000/tmp/images/${result[`img${i}`].path}.jpg`
-          ];
-          tempSelect10Seeds[i] = [
-            result[`img${i}`].seed1,
-            result[`img${i}`].seed2
-          ];
-          tempSelect10Weights[i] = [
-            result[`img${i}`].weight1,
-            result[`img${i}`].weight2
-          ];
+          // 選択されているものであれば、元のものを使用
+          if (isSelecting[i]) {
+            tempSelect10Imgs[i] = select10Imgs[i];
+            tempSelect10Seeds[i] = select10Seeds[i];
+            tempSelect10Weights[i] = select10Weights[i];
+
+          } else {
+            tempSelect10Imgs[i] = [
+              `サンプル画像${i+1}`,
+              `http://localhost:5000/tmp/images/${result[`img${i}`].path}.jpg`
+            ];
+            tempSelect10Seeds[i] = [
+              result[`img${i}`].seed1,
+              result[`img${i}`].seed2
+            ];
+            tempSelect10Weights[i] = [
+              result[`img${i}`].weight1,
+              result[`img${i}`].weight2
+            ];
+          }
         }
 
         // ロードしたものを格納

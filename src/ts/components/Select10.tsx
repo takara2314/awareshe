@@ -17,18 +17,17 @@ const Select10 = (props: ServiceProps) => {
 
     for (let i = 0; i < 10; i++) {
       tempArray[i] = props.isSelecting[i];
-      // もし選択されている状態なら、選択数をインクリメント
+    }
+    tempArray[index] = !props.isSelecting[index];
+
+    for (let i = 0; i < 10; i++) {
       if (tempArray[i]) {
-        tempNum++;
+        // もし選択されている状態なら、選択数をインクリメント
+        tempNum++
       }
     }
 
-    tempArray[index] = !props.isSelecting[index];
-    // もし選択するのであれば、選択数をインクリメント
-    if (tempArray[index]) {
-      tempNum++;
-    }
-
+    console.log(`now selection: ${tempNum}`);
     props.setSelectedNum(tempNum);
     props.setIsSelecting(tempArray);
   }
@@ -58,19 +57,41 @@ const Select10 = (props: ServiceProps) => {
         <ul className="w-full h-full grid grid-cols-5 justify-items-center items-center">
           {props.select10Imgs.map((item: string[], index: number) =>
             <li key={index}>
-              {props.isLoadedSamples
+              { // ロードされている画像ならば表示
+                props.isLoadedSamples
                 ? <img
                     src={item[1]}
                     alt={item[0]}
                     className={props.isSelecting[index]
                       ? "w-44 border-8 border-pink-500"
-                      : "w-44 border-8 border-white"
+                      : "w-44 p-2"
                     }
                     onClick={() => {selectHandler(index)}}
                   />
-                : <div
-                    className="animate-pulse bg-pink-500 w-40 h-40"
+
+                : <></>
+              }
+
+              { // ロードされておらず、選択しているのであれば表示
+                ((props.isLoadedSamples == false) && props.isSelecting[index])
+                ? <img
+                    src={item[1]}
+                    alt={item[0]}
+                    className={props.isSelecting[index]
+                      ? "w-44 border-8 border-pink-500"
+                      : "w-44 p-2"
+                    }
+                    onClick={() => {selectHandler(index)}}
                   />
+                : <></>
+              }
+
+              { // ロードされておらず、選択もされていないならグルグルを表示
+                ((props.isLoadedSamples == false) && (props.isSelecting[index] == false))
+                ? <div
+                    className="animate-pulse bg-pink-500 w-44 h-44 p-2"
+                  />
+                : <></>
               }
             </li>
           )}
@@ -79,41 +100,47 @@ const Select10 = (props: ServiceProps) => {
 
       <section className="flex flex-row justify-between w-96 h-10 mt-5 mx-auto">
         <button
-          className="text-white font-bold mx-auto rounded-xl focus:outline-none"
+          className="text-white font-bold mx-auto focus:outline-none"
           onClick={() => {
-            props.setIsLoadedSamples(false);
-            props.loadSamples();
+            // 全て選択されてなかったら、再生成
+            if (props.selectedNum !== 10) {
+              props.setIsLoadedSamples(false);
+              props.loadSamples();
+            }
           }}
         >
           再生成する
         </button>
 
-        <button
-          className={props.selectedNum == 2
-            ? "w-60 h-10 bg-red-800 text-white font-bold rounded-xl focus:outline-none"
-            : "w-60 h-10 bg-gray-800 text-white font-bold rounded-xl focus:outline-none"
-          }
-          onClick={() => {
-            props.changeProcess('select30');
-          }}
-        >
-          {props.selectedNum == 0
-            ? "あと2枚選択しよう"
-            : ""
-          }
-          {props.selectedNum == 1
-            ? "あと1枚選択しよう"
-            : ""
-          }
-          {props.selectedNum == 2
-            ? "この2枚にする"
-            : ""
-          }
-          {props.selectedNum > 2
-            ? "2枚だけ選ぼう"
-            : ""
-          }
-        </button>
+        {props.selectedNum !== 2
+          ? <div className="text-white font-bold w-60 text-center leading-10">
+              {props.selectedNum == 0
+                ? "あと2枚選択しよう"
+                : ""
+              }
+              {props.selectedNum == 1
+                ? "あと1枚選択しよう"
+                : ""
+              }
+              {props.selectedNum > 2
+                ? "2枚だけ選ぼう"
+                : ""
+              }
+            </div>
+          : <></>
+        }
+
+        {props.selectedNum === 2
+          ? <button
+              className="w-60 h-10 bg-red-800 text-white font-bold rounded-xl focus:outline-none"
+              onClick={() => {
+                props.changeProcess('select30');
+              }}
+            >
+              この2枚にする
+            </button>
+          : <></>
+        }
       </section>
     </>
   )
