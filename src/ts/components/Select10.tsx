@@ -20,8 +20,27 @@ const Select10 = (props: ServiceProps) => {
     }
     tempArray[index] = !props.isSelecting[index];
 
+    // let counter: number = 0;
     for (let i = 0; i < 10; i++) {
       if (tempArray[i]) {
+        // switch (counter) {
+        //   case 0:
+        //     props.setSelects([
+        //       -1, -1
+        //     ]);
+        //     break;
+        //   case 1:
+        //     props.setSelects([
+        //       i, -1
+        //     ]);
+        //   case 2:
+        //     props.setSelects([
+        //       props.selects[0], i
+        //     ]);
+        //     break;
+        // }
+        // counter++
+
         // もし選択されている状態なら、選択数をインクリメント
         tempNum++
       }
@@ -30,6 +49,21 @@ const Select10 = (props: ServiceProps) => {
     console.log(`now selection: ${tempNum}`);
     props.setSelectedNum(tempNum);
     props.setIsSelecting(tempArray);
+  }
+
+  // 選び終わり、次のセクションに進むとき
+  const selected10Handler = () => {
+    let temp: number[] = Array(2);
+    let counter: number = 0;
+
+    for (let i = 0; i < 10; i++) {
+      if (props.isSelecting[i] && counter < 2) {
+        temp[counter++] = i;
+      }
+    }
+
+    props.setSelects(temp);
+    props.changeProcess('waitvideo');
   }
 
   return (
@@ -44,6 +78,9 @@ const Select10 = (props: ServiceProps) => {
         <h1 className="text-6xl font-bold text-red-900">
           3
         </h1>
+        <h1 className="text-6xl font-bold text-red-900">
+          4
+        </h1>
       </section>
 
       <section className="text-center mx-auto">
@@ -55,7 +92,7 @@ const Select10 = (props: ServiceProps) => {
 
       <section className="w-11/12 h-128 bg-white mx-auto mt-6 rounded-xl">
         <ul className="w-full h-full grid grid-cols-5 justify-items-center items-center">
-          {props.select10Imgs.map((item: string[], index: number) =>
+          {props.sample10Imgs.map((item: string[], index: number) =>
             <li key={index}>
               { // ロードされている画像ならば表示
                 props.isLoadedSamples
@@ -104,7 +141,6 @@ const Select10 = (props: ServiceProps) => {
           onClick={() => {
             // 全て選択されてなかったら、再生成
             if (props.selectedNum !== 10) {
-              props.setIsLoadedSamples(false);
               props.loadSamples();
             }
           }}
@@ -133,9 +169,7 @@ const Select10 = (props: ServiceProps) => {
         {props.selectedNum === 2
           ? <button
               className="w-60 h-10 bg-red-800 text-white font-bold rounded-xl focus:outline-none"
-              onClick={() => {
-                props.changeProcess('select30');
-              }}
+              onClick={() => {selected10Handler()}}
             >
               この2枚にする
             </button>

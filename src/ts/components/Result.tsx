@@ -11,8 +11,11 @@ const Result = (props: ServiceProps) => {
         <h1 className="text-6xl font-bold text-red-900">
           2
         </h1>
-        <h1 className="text-6xl font-bold text-white">
+        <h1 className="text-6xl font-bold text-red-900">
           3
+        </h1>
+        <h1 className="text-6xl font-bold text-white">
+          4
         </h1>
       </section>
 
@@ -32,10 +35,9 @@ const Result = (props: ServiceProps) => {
           className="text-white font-bold mx-auto rounded-xl focus:outline-none"
           onClick={() => {
             props.changeProcess('select30');
-            props.loadSamples();
           }}
         >
-          選び直す
+          画像を選び直す
         </button>
         <button
           className="text-white font-bold mx-auto rounded-xl focus:outline-none"

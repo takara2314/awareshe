@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Top from '../components/Top';
 import Select10 from '../components/Select10';
+import WaitVideo from '../components/WaitVideo';
 import Select30 from '../components/Select30';
 import Result from '../components/Result';
 import getSamples from '../services/getSamples';
@@ -9,7 +10,7 @@ const Root = () => {
   const [process, setProcess] = useState<string>('select10');
 
   // 画像と関連付けられているシード値と強さ
-  const [select10Imgs, setSelect10Imgs] = useState<string[][]>([
+  const [sample10Imgs, setSample10Imgs] = useState<string[][]>([
     ['サンプル画像1', '../public/images/sample1.webp'],
     ['サンプル画像2', '../public/images/sample1.webp'],
     ['サンプル画像3', '../public/images/sample1.webp'],
@@ -21,7 +22,7 @@ const Root = () => {
     ['サンプル画像9', '../public/images/sample1.webp'],
     ['サンプル画像10', '../public/images/sample1.webp']
   ]);
-  const [select10Seeds, setSelect10Seeds] = useState<number[][]>([
+  const [sample10Seeds, setSample10Seeds] = useState<number[][]>([
     [10.0, 10.0],
     [10.0, 10.0],
     [10.0, 10.0],
@@ -33,7 +34,7 @@ const Root = () => {
     [10.0, 10.0],
     [10.0, 10.0]
   ]);
-  const [select10Weights, setSelect10Weights] = useState<number[][]>([
+  const [sample10Weights, setSample10Weights] = useState<number[][]>([
     [10.0, 10.0],
     [10.0, 10.0],
     [10.0, 10.0],
@@ -73,27 +74,27 @@ const Root = () => {
         // デバッグ
         console.log(result);
 
-        const tempSelect10Imgs: string[][] = Array(10);
-        const tempSelect10Seeds: number[][] = Array(10);
-        const tempSelect10Weights: number[][] = Array(10);
+        const tempSample10Imgs: string[][] = Array(10);
+        const tempSample10Seeds: number[][] = Array(10);
+        const tempSample10Weights: number[][] = Array(10);
 
         for (let i = 0; i < 10; i++) {
           // 選択されているものであれば、元のものを使用
           if (isSelecting[i]) {
-            tempSelect10Imgs[i] = select10Imgs[i];
-            tempSelect10Seeds[i] = select10Seeds[i];
-            tempSelect10Weights[i] = select10Weights[i];
+            tempSample10Imgs[i] = sample10Imgs[i];
+            tempSample10Seeds[i] = sample10Seeds[i];
+            tempSample10Weights[i] = sample10Weights[i];
 
           } else {
-            tempSelect10Imgs[i] = [
+            tempSample10Imgs[i] = [
               `サンプル画像${i+1}`,
               `http://localhost:5000/tmp/images/${result[`img${i}`].path}.jpg`
             ];
-            tempSelect10Seeds[i] = [
+            tempSample10Seeds[i] = [
               result[`img${i}`].seed1,
               result[`img${i}`].seed2
             ];
-            tempSelect10Weights[i] = [
+            tempSample10Weights[i] = [
               result[`img${i}`].weight1,
               result[`img${i}`].weight2
             ];
@@ -101,9 +102,9 @@ const Root = () => {
         }
 
         // ロードしたものを格納
-        setSelect10Imgs(tempSelect10Imgs);
-        setSelect10Seeds(tempSelect10Seeds);
-        setSelect10Weights(tempSelect10Weights);
+        setSample10Imgs(tempSample10Imgs);
+        setSample10Seeds(tempSample10Seeds);
+        setSample10Weights(tempSample10Weights);
         // ロードが終了したことを記録
         setIsLoadedSamples(true);
       },
@@ -153,12 +154,12 @@ const Root = () => {
             isLoadRequest={isLoadRequest}
             setIsLoadRequest={setIsLoadRequest}
 
-            select10Imgs={select10Imgs}
-            setSelect10Imgs={setSelect10Imgs}
-            select10Seeds={select10Seeds}
-            setSelect10Seeds={setSelect10Seeds}
-            select10Weights={select10Weights}
-            setSelect10Weights={setSelect10Weights}
+            sample10Imgs={sample10Imgs}
+            setSample10Imgs={setSample10Imgs}
+            sample10Seeds={sample10Seeds}
+            setSample10Seeds={setSample10Seeds}
+            sample10Weights={sample10Weights}
+            setSample10Weights={setSample10Weights}
 
             selects={selects}
             setSelects={setSelects}
@@ -183,12 +184,42 @@ const Root = () => {
             isLoadRequest={isLoadRequest}
             setIsLoadRequest={setIsLoadRequest}
 
-            select10Imgs={select10Imgs}
-            setSelect10Imgs={setSelect10Imgs}
-            select10Seeds={select10Seeds}
-            setSelect10Seeds={setSelect10Seeds}
-            select10Weights={select10Weights}
-            setSelect10Weights={setSelect10Weights}
+            sample10Imgs={sample10Imgs}
+            setSample10Imgs={setSample10Imgs}
+            sample10Seeds={sample10Seeds}
+            setSample10Seeds={setSample10Seeds}
+            sample10Weights={sample10Weights}
+            setSample10Weights={setSample10Weights}
+
+            selects={selects}
+            setSelects={setSelects}
+            selectedNum={selectedNum}
+            setSelectedNum={setSelectedNum}
+            isSelecting={isSelecting}
+            setIsSelecting={setIsSelecting}
+
+            videoFrame={videoFrame}
+            setVideoFrame={setVideoFrame}
+          />
+        : <></>
+      }
+      {process == 'waitvideo'
+        ? <WaitVideo
+            process={process}
+            changeProcess={setProcess}
+            loadSamples={loadSamples}
+            isLoadedSamples={isLoadedSamples}
+            setIsLoadedSamples={setIsLoadedSamples}
+
+            isLoadRequest={isLoadRequest}
+            setIsLoadRequest={setIsLoadRequest}
+
+            sample10Imgs={sample10Imgs}
+            setSample10Imgs={setSample10Imgs}
+            sample10Seeds={sample10Seeds}
+            setSample10Seeds={setSample10Seeds}
+            sample10Weights={sample10Weights}
+            setSample10Weights={setSample10Weights}
 
             selects={selects}
             setSelects={setSelects}
@@ -213,12 +244,12 @@ const Root = () => {
             isLoadRequest={isLoadRequest}
             setIsLoadRequest={setIsLoadRequest}
 
-            select10Imgs={select10Imgs}
-            setSelect10Imgs={setSelect10Imgs}
-            select10Seeds={select10Seeds}
-            setSelect10Seeds={setSelect10Seeds}
-            select10Weights={select10Weights}
-            setSelect10Weights={setSelect10Weights}
+            sample10Imgs={sample10Imgs}
+            setSample10Imgs={setSample10Imgs}
+            sample10Seeds={sample10Seeds}
+            setSample10Seeds={setSample10Seeds}
+            sample10Weights={sample10Weights}
+            setSample10Weights={setSample10Weights}
 
             selects={selects}
             setSelects={setSelects}
@@ -243,12 +274,12 @@ const Root = () => {
             isLoadRequest={isLoadRequest}
             setIsLoadRequest={setIsLoadRequest}
 
-            select10Imgs={select10Imgs}
-            setSelect10Imgs={setSelect10Imgs}
-            select10Seeds={select10Seeds}
-            setSelect10Seeds={setSelect10Seeds}
-            select10Weights={select10Weights}
-            setSelect10Weights={setSelect10Weights}
+            sample10Imgs={sample10Imgs}
+            setSample10Imgs={setSample10Imgs}
+            sample10Seeds={sample10Seeds}
+            setSample10Seeds={setSample10Seeds}
+            sample10Weights={sample10Weights}
+            setSample10Weights={setSample10Weights}
 
             selects={selects}
             setSelects={setSelects}

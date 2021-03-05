@@ -9,12 +9,12 @@ interface ServiceProps {
   isLoadRequest:    boolean;
   setIsLoadRequest: (isLoadRequest: boolean) => void;
 
-  select10Imgs:       string[][];
-  setSelect10Imgs:    (select10Imgs: string[][]) => void;
-  select10Seeds:      number[][];
-  setSelect10Seeds:   (select10Seeds: number[][]) => void;
-  select10Weights:    number[][];
-  setSelect10Weights: (select10Weights: number[][]) => void;
+  sample10Imgs:       string[][];
+  setSample10Imgs:    (sample10Imgs: string[][]) => void;
+  sample10Seeds:      number[][];
+  setSample10Seeds:   (sample10Seeds: number[][]) => void;
+  sample10Weights:    number[][];
+  setSample10Weights: (sample10Weights: number[][]) => void;
 
   selects:          number[];
   setSelects:       (selects: number[]) => void;

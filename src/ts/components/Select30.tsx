@@ -74,11 +74,14 @@ const Select30 = (props: ServiceProps) => {
         <h1 className="text-6xl font-bold text-red-900">
           1
         </h1>
-        <h1 className="text-6xl font-bold text-white">
+        <h1 className="text-6xl font-bold text-red-900">
           2
         </h1>
-        <h1 className="text-6xl font-bold text-red-900">
+        <h1 className="text-6xl font-bold text-white">
           3
+        </h1>
+        <h1 className="text-6xl font-bold text-red-900">
+          4
         </h1>
       </section>
 
