@@ -79,9 +79,12 @@ def rMp4():
     weightjson = request.json
     clip = generate_images.generateLatentMovie(weightjson,netG,device)
     r = random.randint(0,999999999999)
+
     tempimg_filename = f'img{now}-{r}'
-    clip.write_videofile(f'{UPLOAD_FOLDER}videos/{tempimg_filename}.mp4')
-    return render_template("index.html", latentvideo = f'{tempimg_filename}.mp4')
+    file_name = f'{UPLOAD_FOLDER}videos/{tempimg_filename}.mp4'
+    clip.write_videofile(file_name)
+
+    return send_file(file_name, mimetype='video/mp4')
 
 @app.route('/getframe',methods=['POST'])
 def rVideoToFrame():
@@ -91,8 +94,11 @@ def rVideoToFrame():
     r = random.randint(0,999999999999)
     tempimg_filename = f'img{now}-{r}'
     img = generate_images.getFrame(img_info["path"],img_info["number"]) #指定された番号のimgを返す
-    cv2.imwrite(f'{UPLOAD_FOLDER}images/{tempimg_filename}.jpg', img)
-    return render_template("index.html",design_image = f'{tempimg_filename}.jpg')
+
+    file_name = f'{UPLOAD_FOLDER}images/{tempimg_filename}.jpg'
+    cv2.imwrite(file_name, img)
+
+    return send_file(file_name, mimetype='image/jpeg')
 
 
 if __name__ == "__main__":
