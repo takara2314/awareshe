@@ -97,7 +97,7 @@ const Select10 = (props: ServiceProps) => {
               { // ロードされている画像ならば表示
                 props.isLoadedSamples
                 ? <img
-                    src={item[1]}
+                    src={`http://localhost:5000/tmp/images/${item[1]}.jpg`}
                     alt={item[0]}
                     className={props.isSelecting[index]
                       ? "w-44 border-8 border-pink-500"
@@ -112,7 +112,7 @@ const Select10 = (props: ServiceProps) => {
               { // ロードされておらず、選択しているのであれば表示
                 ((props.isLoadedSamples == false) && props.isSelecting[index])
                 ? <img
-                    src={item[1]}
+                    src={`http://localhost:5000/tmp/images/${item[1]}.jpg`}
                     alt={item[0]}
                     className={props.isSelecting[index]
                       ? "w-44 border-8 border-pink-500"

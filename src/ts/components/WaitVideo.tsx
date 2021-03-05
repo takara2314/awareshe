@@ -1,10 +1,58 @@
 import React, { useEffect } from 'react';
 import ServiceProps from '../models/ServiceProps';
+import getMovie from '../services/getMovie';
+import GetMoviePost from '../models/GetMoviePost';
 
 const WaitVideo = (props: ServiceProps) => {
   useEffect(() => {
-    console.log(props.selects);
+    loadMovie();
   }, []);
+
+  // サンプルをサーバーから取得し、表示する画像集などに記録
+  const loadMovie = (): void => {
+    let postData: GetMoviePost = {
+      img1: {
+        path:    props.sample10Imgs[props.selects[0]][1],
+        seed1:   props.sample10Seeds[props.selects[0]][0],
+        seed2:   props.sample10Seeds[props.selects[0]][1],
+        weight1: props.sample10Weights[props.selects[0]][0],
+        weight2: props.sample10Weights[props.selects[0]][1]
+      },
+      img2: {
+        path:    props.sample10Imgs[props.selects[1]][1],
+        seed1:   props.sample10Seeds[props.selects[1]][0],
+        seed2:   props.sample10Seeds[props.selects[1]][1],
+        weight1: props.sample10Weights[props.selects[1]][0],
+        weight2: props.sample10Weights[props.selects[1]][1]
+      }
+    };
+
+    console.log(postData);
+
+    getMovie(postData)
+    .then(res => res.text())
+    .then(
+      (result: any) => {
+        // デバッグ
+        console.log(result);
+      },
+      (error: Error) => {
+        console.log(error);
+      }
+    );
+
+    // getMovie(postData)
+    // .then(res => res.json())
+    // .then(
+    //   (result: any) => {
+    //     // デバッグ
+    //     console.log(result);
+    //   },
+    //   (error: Error) => {
+    //     console.log(error);
+    //   }
+    // );
+  }
 
   return (
     <>
@@ -35,7 +83,9 @@ const WaitVideo = (props: ServiceProps) => {
           <div className="animate-pulse bg-pink-500 w-80 h-80 m-auto rounded-3xl absolute inset-0" />
           <div className="w-64 h-64 m-auto absolute inset-0">
             <img
-              src={props.sample10Imgs[props.selects[0]][1]}
+              src={
+                `http://localhost:5000/tmp/images/${props.sample10Imgs[props.selects[0]][1]}.jpg`
+              }
               alt={props.sample10Imgs[props.selects[0]][0]}
               className="w-64 select-none"
             />
@@ -46,7 +96,9 @@ const WaitVideo = (props: ServiceProps) => {
           <div className="animate-pulse bg-pink-500 w-80 h-80 m-auto rounded-3xl absolute inset-0" />
           <div className="w-64 h-64 m-auto absolute inset-0">
             <img
-              src={props.sample10Imgs[props.selects[1]][1]}
+              src={
+                `http://localhost:5000/tmp/images/${props.sample10Imgs[props.selects[1]][1]}.jpg`
+              }
               alt={props.sample10Imgs[props.selects[1]][0]}
               className="w-64 select-none"
             />

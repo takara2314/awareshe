@@ -88,7 +88,7 @@ const Root = () => {
           } else {
             tempSample10Imgs[i] = [
               `サンプル画像${i+1}`,
-              `http://localhost:5000/tmp/images/${result[`img${i}`].path}.jpg`
+              result[`img${i}`].path
             ];
             tempSample10Seeds[i] = [
               result[`img${i}`].seed1,
