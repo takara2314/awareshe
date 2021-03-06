@@ -21,7 +21,7 @@ const Result = (props: ServiceProps) => {
 
       <section className="text-center mx-auto">
         <h1 className="font-bold text-3xl">
-          完成！
+          完成だね！
         </h1>
         おめでとう！今日から彼女はキミの子だ！
       </section>
