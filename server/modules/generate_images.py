@@ -103,7 +103,6 @@ def makeimgs(weight,model,device):
 
 
 def getFrame(weight,model,device):
-    print(weight)
     dims = []
     for key in weight:
         if key!="frame":
