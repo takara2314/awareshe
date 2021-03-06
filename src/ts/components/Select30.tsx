@@ -73,7 +73,20 @@ const Select30 = (props: ServiceProps) => {
   // フレームをサーバーから取得し、完成画面を表示
   const select30Handler = (): void => {
     let postData: GetFramePost = {
-      path:  props.videoPath,
+      img1: {
+        path:    props.sample10Imgs[props.selects[0]][1],
+        seed1:   props.sample10Seeds[props.selects[0]][0],
+        seed2:   props.sample10Seeds[props.selects[0]][1],
+        weight1: props.sample10Weights[props.selects[0]][0],
+        weight2: props.sample10Weights[props.selects[0]][1]
+      },
+      img2: {
+        path:    props.sample10Imgs[props.selects[1]][1],
+        seed1:   props.sample10Seeds[props.selects[1]][0],
+        seed2:   props.sample10Seeds[props.selects[1]][1],
+        weight1: props.sample10Weights[props.selects[1]][0],
+        weight2: props.sample10Weights[props.selects[1]][1]
+      },
       frame: props.videoFrame - 1
     };
 
