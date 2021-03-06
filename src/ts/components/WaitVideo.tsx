@@ -98,14 +98,9 @@ const WaitVideo = (props: ServiceProps) => {
       </section>
 
       <section className="flex flex-row justify-between w-96 h-10 mt-5 mx-auto">
-        <button
-          className="text-white font-bold mx-auto focus:outline-none"
-          onClick={() => {
-            props.changeProcess('select10');
-          }}
-        >
-          参考にする画像を選び直す
-        </button>
+        <div className="text-white font-bold w-96 text-center leading-10">
+          生成中… しばらく待ってね！
+        </div>
       </section>
     </>
   )

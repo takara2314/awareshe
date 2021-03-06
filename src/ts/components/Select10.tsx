@@ -85,7 +85,11 @@ const Select10 = (props: ServiceProps) => {
                       ? "w-44 border-8 border-pink-500"
                       : "w-44 p-2"
                     }
-                    onClick={() => {selectHandler(index)}}
+                    onClick={() => {
+                      if (props.isLoadedSamples) {
+                        selectHandler(index);
+                      }
+                    }}
                   />
 
                 : <></>
@@ -100,7 +104,11 @@ const Select10 = (props: ServiceProps) => {
                       ? "w-44 border-8 border-pink-500"
                       : "w-44 p-2"
                     }
-                    onClick={() => {selectHandler(index)}}
+                    onClick={() => {
+                      if (props.isLoadedSamples) {
+                        selectHandler(index);
+                      }
+                    }}
                   />
                 : <></>
               }
@@ -118,48 +126,65 @@ const Select10 = (props: ServiceProps) => {
       </section>
 
       <section className="flex flex-row justify-between w-96 h-10 mt-5 mx-auto">
-        <button
-          className="text-white font-bold mx-auto focus:outline-none"
-          onClick={() => {
-            // 全て選択されてなかったら、再生成
-            if (props.selectedNum !== 10) {
-              props.loadSamples();
-            }
-          }}
-        >
-          再生成する
-        </button>
-
-        {props.selectedNum !== 2
-          ? <div className="text-white font-bold w-60 text-center leading-10">
-              {props.selectedNum == 0
-                ? "あと2枚選択しよう"
-                : ""
-              }
-              {props.selectedNum == 1
-                ? "あと1枚選択しよう"
-                : ""
-              }
-              {props.selectedNum > 2
-                ? "2枚だけ選ぼう"
-                : ""
-              }
+        {props.isLoadedSamples
+          ? <ButtonSection
+              {...props}
+              selected10Handler={selected10Handler}
+            />
+          : <div className="text-white font-bold w-96 text-center leading-10">
+              生成中…
             </div>
-          : <></>
-        }
-
-        {props.selectedNum === 2
-          ? <button
-              className="w-60 h-10 bg-red-800 text-white font-bold rounded-xl focus:outline-none"
-              onClick={() => {selected10Handler()}}
-            >
-              この2枚にする
-            </button>
-          : <></>
         }
       </section>
     </>
   )
+}
+
+const ButtonSection = (props: ServiceProps & {selected10Handler: () => void}) => {
+  return (
+    <>
+      <button
+        className="text-white font-bold mx-auto focus:outline-none"
+        onClick={() => {
+          // 全て選択されてなかったら、再生成
+          if (props.selectedNum !== 10) {
+            props.setIsLoadedSamples(false);
+            props.loadSamples();
+          }
+        }}
+      >
+        再生成する
+      </button>
+
+      {props.selectedNum !== 2
+        ? <div className="text-white font-bold w-60 text-center leading-10">
+            {props.selectedNum == 0
+              ? "あと2枚選択しよう"
+              : ""
+            }
+            {props.selectedNum == 1
+              ? "あと1枚選択しよう"
+              : ""
+            }
+            {props.selectedNum > 2
+              ? "2枚だけ選ぼう"
+              : ""
+            }
+          </div>
+        : <></>
+      }
+
+      {props.selectedNum === 2
+        ? <button
+            className="w-60 h-10 bg-red-800 text-white font-bold rounded-xl focus:outline-none"
+            onClick={() => {props.selected10Handler()}}
+          >
+            この2枚にする
+          </button>
+        : <></>
+      }
+    </>
+  );
 }
 
 export default Select10;
