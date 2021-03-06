@@ -5,7 +5,7 @@ from server.modules.seeds import seeds
 import torch
 import cv2
 import numpy as np
-import os.path
+import os
 import datetime
 import random
 from moviepy.editor import ImageSequenceClip
@@ -13,10 +13,15 @@ from moviepy.editor import ImageSequenceClip
 from flask import Flask, render_template, request, redirect, url_for, send_file, send_from_directory, jsonify, make_response
 from flask_cors import CORS
 
+
 app = Flask(__name__ , template_folder="dist",static_folder="dist")
 UPLOAD_FOLDER = './tmp/'
 filepath = os.path.dirname(os.path.abspath(__file__))
-
+try:
+    os.mkdir(f'{filepath}/tmp/images')
+    os.mkdir(f'{filepath}/tmp/videos')
+except:
+    pass
 # CORSの許可
 CORS(app)
 
@@ -87,10 +92,10 @@ def rVideoToFrame():
     if request.method != 'POST':
         return 0
     img_info = request.json
-    img = generate_images.getFrame(img_info["path"],img_info["frame"]) #指定された番号のimgを返す
+    img = generate_images.getFrame(img_info) #指定された番号のimgを返す
 
     tempimg_filename = randomName()
-    file_name = f'{UPLOAD_FOLDER}images/{tempimg_filename}.jpg'
+    file_name = f'{UPLOAD_FOLDER}images/{tempimg_filename}.png'
     cv2.imwrite(file_name, img)
 
     return file_name
