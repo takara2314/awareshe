@@ -92,7 +92,7 @@ def rVideoToFrame():
     if request.method != 'POST':
         return 0
     img_info = request.json
-    img = generate_images.getFrame(img_info) #指定された番号のimgを返す
+    img = generate_images.getFrame(img_info,netG,device) #指定された番号のimgを返す
 
     tempimg_filename = randomName()
     file_name = f'{UPLOAD_FOLDER}images/{tempimg_filename}.png'

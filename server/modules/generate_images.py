@@ -102,39 +102,38 @@ def makeimgs(weight,model,device):
     return dst
 
 
-def getFrame(weight):
+def getFrame(weight,model,device):
     print(weight)
     dims = []
     for key in weight:
-        np.random.seed(seed=weight[key]["seed1"])
-        z1 = np.random.randn(1,512*16)
-        z1 = np.clip(z1,-1.,1.)
-        np.random.seed(seed=weight[key]["seed2"])
-        z2 = np.random.randn(1,512*16)
-        z2 = np.clip(z2,-1.,1.)
+        if key!="frame":
+            np.random.seed(seed=weight[key]["seed1"])
+            z1 = np.random.randn(1,512*16)
+            z1 = np.clip(z1,-1.,1.)
+            np.random.seed(seed=weight[key]["seed2"])
+            z2 = np.random.randn(1,512*16)
+            z2 = np.clip(z2,-1.,1.)
 
-        z = (z1 * weight[key]["weight1"]) + (z2 * weight[key]["weight2"])
-        dims.append(z)
+            z = (z1 * weight[key]["weight1"]) + (z2 * weight[key]["weight2"])
+            dims.append(z)
     startdim = dims[0]
     enddim = dims[1]
     alphaValues = np.linspace(0, 1, num)
 
   #値をすこしずつshift
-    vectors = []
     alpha = alphaValues[weight["frame"]]
     dim = startdim*(1-alpha) + enddim * alpha
     dim = dim.tolist()
-    vectors.append(dim)
-    vectors = np.array(vectors)
-    vectors = vectors.transpose(1,0,2).reshape(num,8192)
+    vectors = np.array(dim)
 
     vectors = torch.from_numpy(vectors.astype(np.float32)).to(device)
-    dst = netG_mavg.forward(vectors, 6)
+    dst = model.forward(vectors, 6)
     dst = F.interpolate(dst, (256, 256), mode='nearest')
     dst = dst.to('cpu').detach().numpy()
     n, c, h, w = dst.shape
     dst = dst.reshape(c,h,w)
     dst = dst.transpose(1,2,0)
 
+    dst = cv2.cvtColor(dst, cv2.COLOR_BGR2RGB)
     dst = np.clip(dst*255., 0, 255).astype(np.uint8)
     return dst
