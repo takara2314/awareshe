@@ -23,7 +23,7 @@ const Result = (props: ServiceProps) => {
         <h1 className="font-bold text-3xl">
           完成だね！
         </h1>
-        おめでとう！今日から彼女はキミの子だ！
+        おめでとう！今日から彼女はキミの子だ！やったね！
       </section>
 
       <section className="w-11/12 h-128 bg-white mx-auto mt-6 rounded-xl relative">
