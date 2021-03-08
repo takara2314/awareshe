@@ -155,7 +155,7 @@ const Select30 = (props: ServiceProps) => {
 
       <section className="flex flex-row justify-between w-128 h-10 mt-5 mx-auto">
         <button
-          className="text-white font-bold mx-auto rounded-xl focus:outline-none"
+          className="text-white hover:text-gray-100 font-bold mx-auto rounded-xl focus:outline-none transition-all"
           onClick={() => {
             props.changeProcessForward(false);
             props.changeProcess('select10');
@@ -165,7 +165,7 @@ const Select30 = (props: ServiceProps) => {
         </button>
 
         <button
-          className="w-60 h-10 bg-red-800 text-white font-bold rounded-xl focus:outline-none"
+          className="w-60 h-10 bg-red-800 hover:bg-red-900 text-white font-bold rounded-xl focus:outline-none transition-all"
           onClick={() => {select30Handler()}}
         >
           これに決める

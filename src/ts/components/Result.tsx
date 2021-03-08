@@ -23,7 +23,7 @@ const Result = (props: ServiceProps) => {
 
       <section className="flex flex-row justify-between w-96 h-10 mt-5 mx-auto">
         <button
-          className="text-white font-bold mx-auto rounded-xl focus:outline-none"
+          className="text-white hover:text-gray-100 font-bold mx-auto rounded-xl focus:outline-none transition-all"
           onClick={() => {
             props.changeProcessForward(false);
             props.changeProcess('select30');
@@ -32,7 +32,7 @@ const Result = (props: ServiceProps) => {
           画像を選び直す
         </button>
         <button
-          className="text-white font-bold mx-auto rounded-xl focus:outline-none"
+          className="text-white hover:text-gray-100 font-bold mx-auto rounded-xl focus:outline-none transition-all"
           onClick={() => {
             props.changeProcessForward(true);
             props.changeProcess('none');
