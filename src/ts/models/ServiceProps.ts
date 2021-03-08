@@ -32,8 +32,10 @@ interface ServiceProps {
   videoFrame:    number;
   setVideoFrame: (videoFrame: number) => void;
 
-  framePath:    string;
-  setFramePath: (framePath: string) => void;
+  framePath:        string;
+  setFramePath:     (framePath: string) => void;
+  isLoadedFrame:    boolean;
+  setIsLoadedFrame: (isLoadedFrame: boolean) => void;
 }
 
 export default ServiceProps;

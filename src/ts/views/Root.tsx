@@ -67,6 +67,8 @@ const Root = () => {
 
   // 完成した画像のパス
   const [framePath, setFramePath] = useState<string>('');
+  // 完成した画像をロードしたか
+  const [isLoadedFrame, setIsLoadedFrame] = useState<boolean>(false);
 
   // サンプルをサーバーから取得し、表示する画像集などに記録
   const loadSamples = (): void => {
@@ -74,9 +76,6 @@ const Root = () => {
     .then(res => res.json())
     .then(
       (result: any) => {
-        // デバッグ
-        console.log(result);
-
         const tempSample10Imgs: string[][] = Array(10);
         const tempSample10Seeds: number[][] = Array(10);
         const tempSample10Weights: number[][] = Array(10);
@@ -182,6 +181,8 @@ const Root = () => {
 
         framePath={framePath}
         setFramePath={setFramePath}
+        isLoadedFrame={isLoadedFrame}
+        setIsLoadedFrame={setIsLoadedFrame}
       />
     </main>
   );

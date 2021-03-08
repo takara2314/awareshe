@@ -38,6 +38,13 @@
     font-weight: 100;
 }
 
+@font-face {
+    font-family: "JKGothic";
+    src: url("../../public/fonts/JKGothic/JKGothic-Medium.ttf") format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
 .minus-circle-50vw {
     left: calc(-512rem + 50vw);
 }

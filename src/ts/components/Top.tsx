@@ -22,7 +22,7 @@ const Top = (props: ServiceProps) => {
           AIによって生み出された彼女の写真
         </div>
         <button
-          className="bg-red-800 mt-36 text-white font-bold px-8 py-3 rounded-xl focus:outline-none"
+          className="bg-red-800 hover:bg-red-900 mt-36 text-white font-bold px-8 py-3 rounded-xl focus:outline-none transition-all"
           onClick={() => {
             props.setIsLoadRequest(true);
             props.changeProcessForward(true);
