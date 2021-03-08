@@ -18,10 +18,12 @@
   "homepage": "https://github.com/takara2314/awareshe#readme",
   "dependencies": {
     "react": "^17.0.1",
-    "react-dom": "^17.0.1"
+    "react-dom": "^17.0.1",
+    "react-transition-group": "^4.4.1"
   },
   "devDependencies": {
     "@types/react-dom": "^17.0.1",
+    "@types/react-transition-group": "^4.4.1",
     "@types/webpack": "^4.41.26",
     "@types/webpack-dev-server": "^3.11.1",
     "css-loader": "^5.1.1",

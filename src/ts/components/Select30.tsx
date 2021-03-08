@@ -100,6 +100,7 @@ const Select30 = (props: ServiceProps) => {
         console.log(result);
 
         props.setFramePath(result);
+        props.changeProcessForward(true);
         props.changeProcess('result');
       },
       (error: Error) => {
@@ -171,6 +172,7 @@ const Select30 = (props: ServiceProps) => {
         <button
           className="text-white font-bold mx-auto rounded-xl focus:outline-none"
           onClick={() => {
+            props.changeProcessForward(false);
             props.changeProcess('select10');
           }}
         >
@@ -185,7 +187,7 @@ const Select30 = (props: ServiceProps) => {
         </button>
       </section>
     </>
-  )
+  );
 }
 
 export default Select30;

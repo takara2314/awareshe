@@ -40,6 +40,7 @@ const Result = (props: ServiceProps) => {
         <button
           className="text-white font-bold mx-auto rounded-xl focus:outline-none"
           onClick={() => {
+            props.changeProcessForward(false);
             props.changeProcess('select30');
           }}
         >
@@ -48,6 +49,7 @@ const Result = (props: ServiceProps) => {
         <button
           className="text-white font-bold mx-auto rounded-xl focus:outline-none"
           onClick={() => {
+            props.changeProcessForward(true);
             props.changeProcess('none');
           }}
         >
@@ -55,7 +57,7 @@ const Result = (props: ServiceProps) => {
         </button>
       </section>
     </>
-  )
+  );
 }
 
 export default Result;

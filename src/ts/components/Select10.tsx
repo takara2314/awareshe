@@ -45,6 +45,7 @@ const Select10 = (props: ServiceProps) => {
     }
 
     props.setSelects(temp);
+    props.changeProcessForward(true);
     props.changeProcess('waitvideo');
   }
 

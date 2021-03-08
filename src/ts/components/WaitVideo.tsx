@@ -37,6 +37,7 @@ const WaitVideo = (props: ServiceProps) => {
         console.log(result);
 
         props.setVideoPath(result);
+        props.changeProcessForward(true);
         props.changeProcess('select30');
       },
       (error: Error) => {
@@ -103,7 +104,7 @@ const WaitVideo = (props: ServiceProps) => {
         </div>
       </section>
     </>
-  )
+  );
 }
 
 export default WaitVideo;

@@ -2,6 +2,9 @@ interface ServiceProps {
   process:       string;
   changeProcess: (process: string) => void;
 
+  processForward:       boolean;
+  changeProcessForward: (processDirection: boolean) => void;
+
   loadSamples:        () => void;
   isLoadedSamples:    boolean;
   setIsLoadedSamples: (flag: boolean) => void;
