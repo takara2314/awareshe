@@ -51,22 +51,7 @@ const Select10 = (props: ServiceProps) => {
 
   return (
     <>
-      <section className="flex flex-row justify-between w-72 mx-auto mt-4 mb-8 select-none">
-        <h1 className="text-6xl font-bold text-white">
-          1
-        </h1>
-        <h1 className="text-6xl font-bold text-red-900">
-          2
-        </h1>
-        <h1 className="text-6xl font-bold text-red-900">
-          3
-        </h1>
-        <h1 className="text-6xl font-bold text-red-900">
-          4
-        </h1>
-      </section>
-
-      <section className="text-center mx-auto">
+      <section className="text-center mx-auto mt-24">
         <h1 className="font-bold text-3xl">
           次の中からお好みの2枚を選ぼう！
         </h1>
