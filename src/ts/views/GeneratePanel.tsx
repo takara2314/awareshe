@@ -6,7 +6,7 @@ import Select30 from '../components/Select30';
 import Result from '../components/Result';
 import ServiceProps from '../models/ServiceProps';
 import { Transition, TransitionStatus } from 'react-transition-group';
-import { forwardTransitionStyle, backwardTransitionStyle, numTransitionStyle } from '../animations/transitionStyle';
+import { forwardTransitionStyle, backwardTransitionStyle, startTransitionStyle } from '../animations/sectionTransition';
 
 const GeneratePanel = (props: ServiceProps) => {
   return (
@@ -16,15 +16,9 @@ const GeneratePanel = (props: ServiceProps) => {
         : <></>
       }
 
-      <Transition
-        in={['select10', 'waitvideo', 'select30', 'result'].includes(props.process)}
-        timeout={{enter: 500, exit: 0}}
-        mountOnEnter unmountOnExit
-      >
-        {(state: TransitionStatus) =>
-          <section
+      {['select10', 'waitvideo', 'select30', 'result'].includes(props.process)
+        ? <section
             className="flex flex-row justify-between w-72 mx-auto select-none fixed top-12 inset-x-0"
-            style={numTransitionStyle[state]}
           >
             <h1 className={
               props.process === 'select10'
@@ -55,8 +49,8 @@ const GeneratePanel = (props: ServiceProps) => {
               4
             </h1>
           </section>
-        }
-      </Transition>
+        : <></>
+      }
 
       <Transition
         in={props.process === 'select10'}
@@ -66,7 +60,7 @@ const GeneratePanel = (props: ServiceProps) => {
         {(state: TransitionStatus) =>
           <div
             style={props.processForward
-              ? forwardTransitionStyle[state]
+              ? startTransitionStyle[state]
               : backwardTransitionStyle[state]
             }
             className="w-full h-full absolute flex flex-col justify-center"

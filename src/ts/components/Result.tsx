@@ -13,11 +13,16 @@ const Result = (props: ServiceProps) => {
 
       <section className="w-11/12 h-128 bg-white mx-auto mt-6 rounded-xl relative">
         <div className="w-96 h-96 m-auto absolute inset-0">
-          <img
-            src={`http://localhost:5000/${props.framePath.slice(2)}`}
-            alt="完成した彼女の写真"
-            className="w-96"
-          />
+          {props.isLoadedFrame
+            ? <img
+                src={`http://localhost:5000/${props.framePath.slice(2)}`}
+                alt="完成した彼女の写真"
+                className="w-96"
+              />
+            : <div
+                className="animate-pulse bg-pink-500 w-96 h-96"
+              />
+          }
         </div>
       </section>
 
@@ -34,6 +39,14 @@ const Result = (props: ServiceProps) => {
         <button
           className="text-white hover:text-gray-100 font-bold mx-auto rounded-xl focus:outline-none transition-all"
           onClick={() => {
+            // サンプル画像の選択情報を初期化
+            const temp: boolean[] = Array<boolean>(10);
+            for (let i = 0; i < 10; i++) {
+              temp[i] = false;
+            }
+            props.setIsSelecting(temp);
+            props.setIsLoadedSamples(false);
+
             props.changeProcessForward(true);
             props.changeProcess('none');
           }}

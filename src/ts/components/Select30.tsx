@@ -90,18 +90,17 @@ const Select30 = (props: ServiceProps) => {
       frame: props.videoFrame - 1
     };
 
-    console.log(postData);
+    props.setIsLoadedFrame(false);
+
+    props.changeProcessForward(true);
+    props.changeProcess('result');
 
     getFrame(postData)
     .then(res => res.text())
     .then(
       (result: string) => {
-        // デバッグ
-        console.log(result);
-
         props.setFramePath(result);
-        props.changeProcessForward(true);
-        props.changeProcess('result');
+        props.setIsLoadedFrame(true);
       },
       (error: Error) => {
         console.log(error);

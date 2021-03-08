@@ -28,7 +28,6 @@ const Select10 = (props: ServiceProps) => {
       }
     }
 
-    console.log(`now selection: ${tempNum}`);
     props.setSelectedNum(tempNum);
     props.setIsSelecting(tempArray);
   }
