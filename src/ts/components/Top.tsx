@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ServiceProps from '../models/ServiceProps';
 
 const Top = (props: ServiceProps) => {
@@ -9,6 +9,10 @@ const Top = (props: ServiceProps) => {
     ["生成サンプル4", "../public/images/sample4.webp"],
     ["生成サンプル5", "../public/images/sample5.webp"]
   ];
+
+  useEffect(() => {
+    document.title = 'AwareShe';
+  }, []);
 
   return (
     <>

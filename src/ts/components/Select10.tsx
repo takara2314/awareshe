@@ -4,6 +4,8 @@ import ServiceProps from '../models/ServiceProps';
 const Select10 = (props: ServiceProps) => {
   // ロードリクエストが入っていたら、最初にロードする
   useEffect(() => {
+    document.title = '次の中からお好みの2枚を選ぼう！ - AwareShe';
+
     if (props.isLoadRequest) {
       props.loadSamples();
     }

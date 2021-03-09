@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ServiceProps from '../models/ServiceProps';
 
 const Result = (props: ServiceProps) => {
+  useEffect(() => {
+    document.title = '完成だね！ - AwareShe';
+  }, []);
+
   return (
     <>
       <section className="text-center mx-auto mt-24">

@@ -9,6 +9,10 @@ import randRange from '../services/randRange';
 import generateKoigoe from '../services/generateKoigoe';
 
 const WaitVideo = (props: ServiceProps) => {
+  // top-0 | top-2 | top-4 | top-8 | top-10 | top-16 | top-20 | top-24 | top-32 | top-40 | top-64 | top-72 | top-80
+  // right-0 | right-2 | right-4 | right-8 | right-10 | right-16 | right-20 | right-24 | right-32 | right-40 | right-64 | right-72 | right-80
+  // bottom-0 | bottom-2 | bottom-4 | bottom-8 | bottom-10 | bottom-16 | bottom-20 | bottom-24 | bottom-32 | bottom-40 | bottom-64 | bottom-72 | bottom-80
+  // left-0 | left-2 | left-4 | left-8 | left-10 | left-16 | left-20 | left-24 | left-32 | left-40 | left-64 | left-72 | left-80
   const koigoePos = [0, 2, 4, 6, 8, 10, 16, 20, 24, 32, 40, 64, 72, 80];
 
   const [leftKoigoe, setLeftKoigoe] = useState<string>('');
@@ -33,6 +37,9 @@ const WaitVideo = (props: ServiceProps) => {
   }, [isRightKoigoe]);
 
   useEffect(() => {
+    document.title = '彼女を生み出しています… - AwareShe';
+
+    // 動画を生成
     loadMovie();
 
     // JKゴシックをプリロード

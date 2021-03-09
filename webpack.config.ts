@@ -50,12 +50,12 @@ const config: Configuration = {
     }),
     new BundleAnalyzerPlugin()
   ],
-  mode: 'development',
+  mode: 'production',
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
-  devtool: 'inline-source-map',
-  // devtool: 'hidden-source-map',
+  // devtool: 'inline-source-map',
+  devtool: 'hidden-source-map',
   devServer: {
     contentBase: path.join(__dirname, 'static'),
     open: true,

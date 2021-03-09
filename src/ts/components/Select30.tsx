@@ -10,6 +10,8 @@ const Select30 = (props: ServiceProps) => {
 
   // フレームの初期値は15
   useEffect(() => {
+    document.title = '変化工程から好きな1枚を選ぼう！ - AwareShe';
+
     selectFrameObj.current!.value = props.videoFrame.toString();
     seekbarObj.current!.value = props.videoFrame.toString();
     changeVideoFrame(props.videoFrame);
