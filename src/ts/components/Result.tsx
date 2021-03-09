@@ -4,7 +4,7 @@ import ServiceProps from '../models/ServiceProps';
 const Result = (props: ServiceProps) => {
   useEffect(() => {
     document.title = '完成だね！ - AwareShe';
-  }, []);
+  }, [props.isTwoShot]);
 
   return (
     <>
@@ -15,8 +15,8 @@ const Result = (props: ServiceProps) => {
         おめでとう！今日から彼女はキミの子だ！やったね！
       </section>
 
-      <section className="w-11/12 h-128 bg-white mx-auto mt-6 rounded-xl relative">
-        <div className="w-96 h-96 m-auto absolute inset-0">
+      <section className="w-11/12 h-128 bg-white text-black mx-auto mt-6 rounded-xl flex flex-col justify-center">
+        <section className="w-96 h-96 m-auto">
           {props.isLoadedFrame
             ? <img
                 src={`http://localhost:5000/${props.framePath.slice(2)}`}
@@ -27,7 +27,29 @@ const Result = (props: ServiceProps) => {
                 className="animate-pulse bg-pink-500 w-96 h-96"
               />
           }
-        </div>
+        </section>
+        <section className="flex flex-row justify-between w-128 h-10 mb-5 mx-auto">
+          {props.isLoadedFrame
+            ? <>
+                <button
+                  className="w-60 h-10 bg-pink-800 hover:bg-pink-900 text-white font-bold rounded-xl focus:outline-none transition-all"
+                  onClick={() => {props.setIsTwoShot(true)}}
+                >
+                  ツーショットを撮る♡
+                </button>
+                <a
+                  href={`http://localhost:5000/${props.framePath.slice(2)}`}
+                  download="彼女.png"
+                  className="w-60 h-10 text-center leading-10 bg-red-800 hover:bg-red-900 text-white font-bold rounded-xl focus:outline-none transition-all"
+                >
+                  画像をダウンロード
+                </a>
+              </>
+            : <div className="text-black font-bold w-96 m-auto text-center leading-10">
+                もう少し待ってね！
+              </div>
+          }
+        </section>
       </section>
 
       <section className="flex flex-row justify-between w-96 h-10 mt-5 mx-auto">
@@ -36,6 +58,7 @@ const Result = (props: ServiceProps) => {
           onClick={() => {
             props.changeProcessForward(false);
             props.changeProcess('select30');
+            props.setIsLoadedFrame(false);
           }}
         >
           画像を選び直す

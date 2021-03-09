@@ -6,7 +6,8 @@ import Select30 from '../components/Select30';
 import Result from '../components/Result';
 import ServiceProps from '../models/ServiceProps';
 import { Transition, TransitionStatus } from 'react-transition-group';
-import { forwardTransitionStyle, backwardTransitionStyle, startTransitionStyle } from '../animations/sectionTransition';
+import { forwardTransitionStyle, backwardTransitionStyle, startTransitionStyle, twoshotTransitionStyle, closeTwoshotTransitionStyle } from '../animations/sectionTransition';
+import TwoShot from '../components/TwoShot';
 
 const GeneratePanel = (props: ServiceProps) => {
   return (
@@ -120,6 +121,35 @@ const GeneratePanel = (props: ServiceProps) => {
             className="w-full h-full absolute flex flex-col justify-center"
           >
             <Result {...props} />
+          </div>
+        }
+      </Transition>
+
+      <Transition
+        in={props.isTwoShot}
+        timeout={{enter: 0, exit: 1000}}
+        mountOnEnter unmountOnExit
+      >
+        {(state: TransitionStatus) =>
+          <section
+            style={closeTwoshotTransitionStyle[state]}
+            className="w-full h-full bg-black opacity-50 absolute"
+            onClick={() => {props.setIsTwoShot(false)}}
+          />
+        }
+      </Transition>
+
+      <Transition
+        in={props.isTwoShot}
+        timeout={{enter: 0, exit: 1000}}
+        mountOnEnter unmountOnExit
+      >
+        {(state: TransitionStatus) =>
+          <div
+            style={twoshotTransitionStyle[state]}
+            className="w-11/12 h-5/6 mx-auto relative"
+          >
+            <TwoShot {...props} />
           </div>
         }
       </Transition>

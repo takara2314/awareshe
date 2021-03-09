@@ -70,6 +70,9 @@ const Root = () => {
   // 完成した画像をロードしたか
   const [isLoadedFrame, setIsLoadedFrame] = useState<boolean>(false);
 
+  // ツーショット画面を表示するか
+  const [isTwoShot, setIsTwoShot] = useState<boolean>(false);
+
   // サンプルをサーバーから取得し、表示する画像集などに記録
   const loadSamples = (): void => {
     getSamples()
@@ -183,6 +186,9 @@ const Root = () => {
         setFramePath={setFramePath}
         isLoadedFrame={isLoadedFrame}
         setIsLoadedFrame={setIsLoadedFrame}
+
+        isTwoShot={isTwoShot}
+        setIsTwoShot={setIsTwoShot}
       />
     </main>
   );

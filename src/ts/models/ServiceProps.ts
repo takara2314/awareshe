@@ -36,6 +36,9 @@ interface ServiceProps {
   setFramePath:     (framePath: string) => void;
   isLoadedFrame:    boolean;
   setIsLoadedFrame: (isLoadedFrame: boolean) => void;
+
+  isTwoShot:    boolean;
+  setIsTwoShot: (isTwoShot: boolean) => void;
 }
 
 export default ServiceProps;

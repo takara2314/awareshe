@@ -1,4 +1,4 @@
-export const koigoeTransitionStyle: {entering: any, entered: any, exiting: any, exited: any, unmounted: any} = {
+const koigoeTransitionStyle: {entering: any, entered: any, exiting: any, exited: any, unmounted: any} = {
   entering: {
     transition: "all 1s ease",
     transform: "translate(0, 0)",
@@ -25,3 +25,5 @@ export const koigoeTransitionStyle: {entering: any, entered: any, exiting: any, 
     opacity: "0"
   }
 };
+
+export default koigoeTransitionStyle;
