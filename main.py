@@ -54,9 +54,9 @@ def send_javascript():
     file = './dist/bundle.js'
     return send_file(file, mimetype='text/javascript')
 
-@app.route('/3821b207e9b20ad5b287.png')
+@app.route('/e6bd5cba742806429e93.png')
 def send_favicon():
-    file = './dist/3821b207e9b20ad5b287.png'
+    file = './dist/e6bd5cba742806429e93.png'
     return send_file(file, mimetype='image/png')
 
 #10枚ランダムリクエスト
