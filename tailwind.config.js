@@ -1,6 +1,6 @@
 module.exports = {
   purge: {
-    enabled: false,
+    enabled: true,
     content: [
       './src/ts/**/*.{ts,tsx}',
       './src/html/index.html'
@@ -10,7 +10,8 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'sans': ['Inter', 'Meiryo', 'sans-serif']
+        'sans': ['Inter', 'Meiryo', 'sans-serif'],
+        'jk': ['JKGothic', 'Meiryo', 'sans-serif']
       },
       spacing: {
         '128': '32rem',

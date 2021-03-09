@@ -1,7 +1,6 @@
 import GetMoviePost from '../models/GetMoviePost';
 
 const getMovie = (data: GetMoviePost): Promise<Response> => {
-  console.log(JSON.stringify(data));
   return fetch('http://localhost:5000/getmovie', {
     method: 'POST',
     mode:   'cors',

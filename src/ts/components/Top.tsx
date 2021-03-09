@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ServiceProps from '../models/ServiceProps';
 
 const Top = (props: ServiceProps) => {
@@ -10,22 +10,26 @@ const Top = (props: ServiceProps) => {
     ["生成サンプル5", "../public/images/sample5.webp"]
   ];
 
+  useEffect(() => {
+    document.title = 'AwareShe';
+  }, []);
+
   return (
     <>
-      <section className="rounded-full bg-red-500 w-4096 h-4096 absolute -top-3968 minus-circle-50vw shadow-inner">
-      </section>
+      <section className="rounded-full bg-red-500 w-4096 h-4096 absolute -top-3968 minus-circle-50vw shadow-inner" />
 
       <section className="w-full text-white text-2xl text-center h-128 mb-5 absolute top-0">
-        <h1 className="font-bold text-6xl mt-32">
+        <h1 className="font-bold text-6xl pt-32">
           AwareShe
         </h1>
         <div className="mt-4">
           AIによって生み出された彼女の写真
         </div>
         <button
-          className="bg-red-800 mt-36 text-white font-bold px-8 py-3 rounded-xl focus:outline-none"
+          className="bg-red-800 hover:bg-red-900 mt-36 text-white font-bold px-8 py-3 rounded-xl focus:outline-none transition-all"
           onClick={() => {
             props.setIsLoadRequest(true);
+            props.changeProcessForward(true);
             props.changeProcess('select10');
           }}
         >
@@ -33,7 +37,7 @@ const Top = (props: ServiceProps) => {
         </button>
       </section>
 
-      <section className="w-256 mt-144 mx-auto">
+      <section className="w-256 pt-144 mx-auto">
         <div className="bg-gray-100 rounded-xl mb-10 p-6">
           <h1 className="font-bold text-2xl text-red-500 mb-2">
             AwareShe とは
@@ -84,7 +88,7 @@ const Top = (props: ServiceProps) => {
         </small>
       </footer>
     </>
-  )
+  );
 }
 
 export default Top;

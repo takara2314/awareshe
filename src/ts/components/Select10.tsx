@@ -4,6 +4,8 @@ import ServiceProps from '../models/ServiceProps';
 const Select10 = (props: ServiceProps) => {
   // ロードリクエストが入っていたら、最初にロードする
   useEffect(() => {
+    document.title = '次の中からお好みの2枚を選ぼう！ - AwareShe';
+
     if (props.isLoadRequest) {
       props.loadSamples();
     }
@@ -28,7 +30,6 @@ const Select10 = (props: ServiceProps) => {
       }
     }
 
-    console.log(`now selection: ${tempNum}`);
     props.setSelectedNum(tempNum);
     props.setIsSelecting(tempArray);
   }
@@ -45,27 +46,13 @@ const Select10 = (props: ServiceProps) => {
     }
 
     props.setSelects(temp);
+    props.changeProcessForward(true);
     props.changeProcess('waitvideo');
   }
 
   return (
     <>
-      <section className="flex flex-row justify-between w-72 mx-auto mt-4 mb-8 select-none">
-        <h1 className="text-6xl font-bold text-white">
-          1
-        </h1>
-        <h1 className="text-6xl font-bold text-red-900">
-          2
-        </h1>
-        <h1 className="text-6xl font-bold text-red-900">
-          3
-        </h1>
-        <h1 className="text-6xl font-bold text-red-900">
-          4
-        </h1>
-      </section>
-
-      <section className="text-center mx-auto">
+      <section className="text-center mx-auto mt-24">
         <h1 className="font-bold text-3xl">
           次の中からお好みの2枚を選ぼう！
         </h1>
@@ -83,7 +70,7 @@ const Select10 = (props: ServiceProps) => {
                     alt={item[0]}
                     className={props.isSelecting[index]
                       ? "w-44 border-8 border-pink-500"
-                      : "w-44 p-2"
+                      : "w-44 border-8 border-white hover:border-pink-100"
                     }
                     onClick={() => {
                       if (props.isLoadedSamples) {
@@ -102,7 +89,7 @@ const Select10 = (props: ServiceProps) => {
                     alt={item[0]}
                     className={props.isSelecting[index]
                       ? "w-44 border-8 border-pink-500"
-                      : "w-44 p-2"
+                      : "w-44 border-8 border-white hover:border-pink-100"
                     }
                     onClick={() => {
                       if (props.isLoadedSamples) {
@@ -144,7 +131,7 @@ const ButtonSection = (props: ServiceProps & {selected10Handler: () => void}) =>
   return (
     <>
       <button
-        className="text-white font-bold mx-auto focus:outline-none"
+        className="text-white hover:text-gray-100 font-bold mx-auto focus:outline-none transition-all"
         onClick={() => {
           // 全て選択されてなかったら、再生成
           if (props.selectedNum !== 10) {
@@ -176,7 +163,7 @@ const ButtonSection = (props: ServiceProps & {selected10Handler: () => void}) =>
 
       {props.selectedNum === 2
         ? <button
-            className="w-60 h-10 bg-red-800 text-white font-bold rounded-xl focus:outline-none"
+            className="w-60 h-10 bg-red-800 hover:bg-red-900 text-white font-bold rounded-xl focus:outline-none transition-all"
             onClick={() => {props.selected10Handler()}}
           >
             この2枚にする

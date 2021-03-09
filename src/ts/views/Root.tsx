@@ -1,13 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import Top from '../components/Top';
-import Select10 from '../components/Select10';
-import WaitVideo from '../components/WaitVideo';
-import Select30 from '../components/Select30';
-import Result from '../components/Result';
 import getSamples from '../services/getSamples';
+import GeneratePanel from './GeneratePanel';
 
 const Root = () => {
   const [process, setProcess] = useState<string>('none');
+  const [processForward, setProcessForward] = useState<boolean>(true);
 
   // 画像と関連付けられているシード値と強さ
   const [sample10Imgs, setSample10Imgs] = useState<string[][]>([
@@ -70,6 +67,8 @@ const Root = () => {
 
   // 完成した画像のパス
   const [framePath, setFramePath] = useState<string>('');
+  // 完成した画像をロードしたか
+  const [isLoadedFrame, setIsLoadedFrame] = useState<boolean>(false);
 
   // サンプルをサーバーから取得し、表示する画像集などに記録
   const loadSamples = (): void => {
@@ -77,9 +76,6 @@ const Root = () => {
     .then(res => res.json())
     .then(
       (result: any) => {
-        // デバッグ
-        console.log(result);
-
         const tempSample10Imgs: string[][] = Array(10);
         const tempSample10Seeds: number[][] = Array(10);
         const tempSample10Weights: number[][] = Array(10);
@@ -141,7 +137,7 @@ const Root = () => {
     return (
       process == 'none'
       ? 'text-lg overflow-x-hidden relative'
-      : 'flex flex-col justify-center bg-red-500 text-lg text-white overflow-hidden'
+      : 'flex flex-col justify-center bg-red-500 text-lg text-white overflow-hidden relative'
     );
   }
 
@@ -149,188 +145,47 @@ const Root = () => {
 
   return (
     <main className={mainElementClass()} ref={mainObj}>
-      {process == 'none'
-        ? <Top
-            process={process}
-            changeProcess={setProcess}
-            loadSamples={loadSamples}
-            isLoadedSamples={isLoadedSamples}
-            setIsLoadedSamples={setIsLoadedSamples}
+      <GeneratePanel
+        process={process}
+        changeProcess={setProcess}
 
-            isLoadRequest={isLoadRequest}
-            setIsLoadRequest={setIsLoadRequest}
+        processForward={processForward}
+        changeProcessForward={setProcessForward}
 
-            sample10Imgs={sample10Imgs}
-            setSample10Imgs={setSample10Imgs}
-            sample10Seeds={sample10Seeds}
-            setSample10Seeds={setSample10Seeds}
-            sample10Weights={sample10Weights}
-            setSample10Weights={setSample10Weights}
+        loadSamples={loadSamples}
+        isLoadedSamples={isLoadedSamples}
+        setIsLoadedSamples={setIsLoadedSamples}
 
-            selects={selects}
-            setSelects={setSelects}
-            selectedNum={selectedNum}
-            setSelectedNum={setSelectedNum}
-            isSelecting={isSelecting}
-            setIsSelecting={setIsSelecting}
+        isLoadRequest={isLoadRequest}
+        setIsLoadRequest={setIsLoadRequest}
 
-            videoPath={videoPath}
-            setVideoPath={setVideoPath}
+        sample10Imgs={sample10Imgs}
+        setSample10Imgs={setSample10Imgs}
+        sample10Seeds={sample10Seeds}
+        setSample10Seeds={setSample10Seeds}
+        sample10Weights={sample10Weights}
+        setSample10Weights={setSample10Weights}
 
-            videoFrame={videoFrame}
-            setVideoFrame={setVideoFrame}
+        selects={selects}
+        setSelects={setSelects}
+        selectedNum={selectedNum}
+        setSelectedNum={setSelectedNum}
+        isSelecting={isSelecting}
+        setIsSelecting={setIsSelecting}
 
-            framePath={framePath}
-            setFramePath={setFramePath}
-          />
-        : <></>
-      }
-      {process == 'select10'
-        ? <Select10
-            process={process}
-            changeProcess={setProcess}
-            loadSamples={loadSamples}
-            isLoadedSamples={isLoadedSamples}
-            setIsLoadedSamples={setIsLoadedSamples}
+        videoPath={videoPath}
+        setVideoPath={setVideoPath}
 
-            isLoadRequest={isLoadRequest}
-            setIsLoadRequest={setIsLoadRequest}
+        videoFrame={videoFrame}
+        setVideoFrame={setVideoFrame}
 
-            sample10Imgs={sample10Imgs}
-            setSample10Imgs={setSample10Imgs}
-            sample10Seeds={sample10Seeds}
-            setSample10Seeds={setSample10Seeds}
-            sample10Weights={sample10Weights}
-            setSample10Weights={setSample10Weights}
-
-            selects={selects}
-            setSelects={setSelects}
-            selectedNum={selectedNum}
-            setSelectedNum={setSelectedNum}
-            isSelecting={isSelecting}
-            setIsSelecting={setIsSelecting}
-
-            videoPath={videoPath}
-            setVideoPath={setVideoPath}
-
-            videoFrame={videoFrame}
-            setVideoFrame={setVideoFrame}
-
-            framePath={framePath}
-            setFramePath={setFramePath}
-          />
-        : <></>
-      }
-      {process == 'waitvideo'
-        ? <WaitVideo
-            process={process}
-            changeProcess={setProcess}
-            loadSamples={loadSamples}
-            isLoadedSamples={isLoadedSamples}
-            setIsLoadedSamples={setIsLoadedSamples}
-
-            isLoadRequest={isLoadRequest}
-            setIsLoadRequest={setIsLoadRequest}
-
-            sample10Imgs={sample10Imgs}
-            setSample10Imgs={setSample10Imgs}
-            sample10Seeds={sample10Seeds}
-            setSample10Seeds={setSample10Seeds}
-            sample10Weights={sample10Weights}
-            setSample10Weights={setSample10Weights}
-
-            selects={selects}
-            setSelects={setSelects}
-            selectedNum={selectedNum}
-            setSelectedNum={setSelectedNum}
-            isSelecting={isSelecting}
-            setIsSelecting={setIsSelecting}
-
-            videoPath={videoPath}
-            setVideoPath={setVideoPath}
-
-            videoFrame={videoFrame}
-            setVideoFrame={setVideoFrame}
-
-            framePath={framePath}
-            setFramePath={setFramePath}
-          />
-        : <></>
-      }
-      {process == 'select30'
-        ? <Select30
-            process={process}
-            changeProcess={setProcess}
-            loadSamples={loadSamples}
-            isLoadedSamples={isLoadedSamples}
-            setIsLoadedSamples={setIsLoadedSamples}
-
-            isLoadRequest={isLoadRequest}
-            setIsLoadRequest={setIsLoadRequest}
-
-            sample10Imgs={sample10Imgs}
-            setSample10Imgs={setSample10Imgs}
-            sample10Seeds={sample10Seeds}
-            setSample10Seeds={setSample10Seeds}
-            sample10Weights={sample10Weights}
-            setSample10Weights={setSample10Weights}
-
-            selects={selects}
-            setSelects={setSelects}
-            selectedNum={selectedNum}
-            setSelectedNum={setSelectedNum}
-            isSelecting={isSelecting}
-            setIsSelecting={setIsSelecting}
-
-            videoPath={videoPath}
-            setVideoPath={setVideoPath}
-
-            videoFrame={videoFrame}
-            setVideoFrame={setVideoFrame}
-
-            framePath={framePath}
-            setFramePath={setFramePath}
-          />
-        : <></>
-      }
-      {process == 'result'
-        ? <Result
-            process={process}
-            changeProcess={setProcess}
-            loadSamples={loadSamples}
-            isLoadedSamples={isLoadedSamples}
-            setIsLoadedSamples={setIsLoadedSamples}
-
-            isLoadRequest={isLoadRequest}
-            setIsLoadRequest={setIsLoadRequest}
-
-            sample10Imgs={sample10Imgs}
-            setSample10Imgs={setSample10Imgs}
-            sample10Seeds={sample10Seeds}
-            setSample10Seeds={setSample10Seeds}
-            sample10Weights={sample10Weights}
-            setSample10Weights={setSample10Weights}
-
-            selects={selects}
-            setSelects={setSelects}
-            selectedNum={selectedNum}
-            setSelectedNum={setSelectedNum}
-            isSelecting={isSelecting}
-            setIsSelecting={setIsSelecting}
-
-            videoPath={videoPath}
-            setVideoPath={setVideoPath}
-
-            videoFrame={videoFrame}
-            setVideoFrame={setVideoFrame}
-
-            framePath={framePath}
-            setFramePath={setFramePath}
-          />
-        : <></>
-      }
+        framePath={framePath}
+        setFramePath={setFramePath}
+        isLoadedFrame={isLoadedFrame}
+        setIsLoadedFrame={setIsLoadedFrame}
+      />
     </main>
-  )
+  );
 }
 
 export default Root;

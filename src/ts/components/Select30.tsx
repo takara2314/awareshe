@@ -10,6 +10,8 @@ const Select30 = (props: ServiceProps) => {
 
   // フレームの初期値は15
   useEffect(() => {
+    document.title = '変化工程から好きな1枚を選ぼう！ - AwareShe';
+
     selectFrameObj.current!.value = props.videoFrame.toString();
     seekbarObj.current!.value = props.videoFrame.toString();
     changeVideoFrame(props.videoFrame);
@@ -90,17 +92,17 @@ const Select30 = (props: ServiceProps) => {
       frame: props.videoFrame - 1
     };
 
-    console.log(postData);
+    props.setIsLoadedFrame(false);
+
+    props.changeProcessForward(true);
+    props.changeProcess('result');
 
     getFrame(postData)
     .then(res => res.text())
     .then(
       (result: string) => {
-        // デバッグ
-        console.log(result);
-
         props.setFramePath(result);
-        props.changeProcess('result');
+        props.setIsLoadedFrame(true);
       },
       (error: Error) => {
         console.log(error);
@@ -110,22 +112,7 @@ const Select30 = (props: ServiceProps) => {
 
   return (
     <>
-      <section className="flex flex-row justify-between w-72 mx-auto mt-4 mb-8 select-none">
-        <h1 className="text-6xl font-bold text-red-900">
-          1
-        </h1>
-        <h1 className="text-6xl font-bold text-red-900">
-          2
-        </h1>
-        <h1 className="text-6xl font-bold text-white">
-          3
-        </h1>
-        <h1 className="text-6xl font-bold text-red-900">
-          4
-        </h1>
-      </section>
-
-      <section className="text-center mx-auto">
+      <section className="text-center mx-auto mt-24">
         <h1 className="font-bold text-3xl">
           変化工程から好きな1枚を選ぼう！
         </h1>
@@ -169,8 +156,9 @@ const Select30 = (props: ServiceProps) => {
 
       <section className="flex flex-row justify-between w-128 h-10 mt-5 mx-auto">
         <button
-          className="text-white font-bold mx-auto rounded-xl focus:outline-none"
+          className="text-white hover:text-gray-100 font-bold mx-auto rounded-xl focus:outline-none transition-all"
           onClick={() => {
+            props.changeProcessForward(false);
             props.changeProcess('select10');
           }}
         >
@@ -178,14 +166,14 @@ const Select30 = (props: ServiceProps) => {
         </button>
 
         <button
-          className="w-60 h-10 bg-red-800 text-white font-bold rounded-xl focus:outline-none"
+          className="w-60 h-10 bg-red-800 hover:bg-red-900 text-white font-bold rounded-xl focus:outline-none transition-all"
           onClick={() => {select30Handler()}}
         >
           これに決める
         </button>
       </section>
     </>
-  )
+  );
 }
 
 export default Select30;

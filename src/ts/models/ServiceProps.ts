@@ -2,6 +2,9 @@ interface ServiceProps {
   process:       string;
   changeProcess: (process: string) => void;
 
+  processForward:       boolean;
+  changeProcessForward: (processDirection: boolean) => void;
+
   loadSamples:        () => void;
   isLoadedSamples:    boolean;
   setIsLoadedSamples: (flag: boolean) => void;
@@ -29,8 +32,10 @@ interface ServiceProps {
   videoFrame:    number;
   setVideoFrame: (videoFrame: number) => void;
 
-  framePath:    string;
-  setFramePath: (framePath: string) => void;
+  framePath:        string;
+  setFramePath:     (framePath: string) => void;
+  isLoadedFrame:    boolean;
+  setIsLoadedFrame: (isLoadedFrame: boolean) => void;
 }
 
 export default ServiceProps;
