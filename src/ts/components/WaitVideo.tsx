@@ -3,7 +3,7 @@ import ServiceProps from '../models/ServiceProps';
 import getMovie from '../services/getMovie';
 import GetMoviePost from '../models/GetMoviePost';
 import { Transition, TransitionStatus } from 'react-transition-group';
-import { koigoeTransitionStyle } from '../animations/koigoeTranslation';
+import koigoeTransitionStyle from '../animations/koigoeTranslation';
 import preload from '../services/preload';
 import randRange from '../services/randRange';
 import generateKoigoe from '../services/generateKoigoe';
