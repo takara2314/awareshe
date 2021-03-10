@@ -106,7 +106,7 @@ const TwoShot = (props: ServiceProps) => {
                 ref={girlObj}
               >
                 <img
-                  src={`http://localhost:5000/${props.framePath.slice(2)}`}
+                  src={props.framePath}
                   alt="完成した彼女の写真"
                   className="w-full select-none"
                 />
