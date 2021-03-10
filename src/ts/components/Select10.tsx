@@ -30,6 +30,7 @@ const Select10 = (props: ServiceProps) => {
       }
     }
 
+    // 現在の選択数と選択インデックスを更新
     props.setSelectedNum(tempNum);
     props.setIsSelecting(tempArray);
   }
@@ -45,7 +46,9 @@ const Select10 = (props: ServiceProps) => {
       }
     }
 
+    // 現在の選択しているものの画像データを格納
     props.setSelects(temp);
+    // ビデオ待ち画面に移行
     props.changeProcessForward(true);
     props.changeProcess('waitvideo');
   }

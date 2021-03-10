@@ -44,7 +44,7 @@ const TwoShot = (props: ServiceProps) => {
     );
   }, []);
 
-  // main要素の大きさを縦横フルに
+  // 要素の大きさを縦横フルに
   const changeElementSize = () => {
     if (menuObj.current!.clientWidth / menuObj.current!.clientHeight >= 16/9) {
       cameraSection.current!.style.width = `${menuObj.current!.clientHeight * 16/9}px`;
@@ -60,15 +60,19 @@ const TwoShot = (props: ServiceProps) => {
     }
   }
 
+  // シャッターボタンを押したときのイベント
   const shotHandler = () => {
+    // 現在のカメラ映像を写真(base64)に
     const imgSrc: string = webcamObj.current!.getScreenshot() as string;
 
+    // 自画像と彼女の写真を合成
     generateTwoShot(
       imgSrc,
       props.framePath,
       2/3
     )
     .then((result: HTMLImageElement) => {
+      // 合成した写真データ(base64)を表示
       setTwoshotImg(result.src);
       setIsTwoshoot(true);
     });

@@ -97,6 +97,7 @@ const Select30 = (props: ServiceProps) => {
     props.changeProcessForward(true);
     props.changeProcess('result');
 
+    // フレーム画像(png)を取得
     getFrame(postData)
     .then(res => res.text())
     .then(

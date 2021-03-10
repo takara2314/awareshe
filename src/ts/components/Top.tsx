@@ -42,8 +42,14 @@ const Top = (props: ServiceProps) => {
           <h1 className="font-bold text-2xl text-red-500 mb-2">
             AwareShe とは
           </h1>
+          <p>
+            2次元の彼女を作れるサイトです。
+          </p>
+          <p>
+            お気に入りの子を二人選んで、自分好みの子を作ろう！
+          </p>
           <p className="mb-3">
-            kosakae256 によってつくられた、超スーパーウルトラスペシャルなアイコン生成器♡
+            作った画像はアイコンにでもしてあげてください。
           </p>
           <ul className="flex justify-between">
             {sampleImgs.map((item: string[], index: number) =>
@@ -74,10 +80,12 @@ const Top = (props: ServiceProps) => {
             著作権
           </h1>
           <p>
-            オープンソースの学習データを使用していますが、著作権は一応あるみたいです。（神コサ＝カエ256世のお告げ）
+            オープンソースの学習データを利用しているので、生成した画像は自由に使用することが可能です。
           </p>
           <p>
-            しいていうなら… Python…?
+            使用した時点で、私たち(
+            <a href="https://twitter.com/kosakae256">kosakae256</a>, <a href="https://twitter.com/takara2314">takara2314</a>
+            )にポンデリングとシュークリームと寿司をおごる権利がつきます。おごってください！
           </p>
         </div>
       </section>

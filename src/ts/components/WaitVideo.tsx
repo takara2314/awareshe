@@ -127,6 +127,7 @@ const WaitVideo = (props: ServiceProps) => {
       }
     };
 
+    // 動画(mp4)を取得
     getMovie(postData)
     .then(res => res.text())
     .then(
