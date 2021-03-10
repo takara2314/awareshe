@@ -19,9 +19,10 @@ def generate10Image(model,device,seeds):
     weights = {}
     dims = []
     imgs = []
+    seedstemp = random.sample(seeds, 20)
     for i in range(0,10):
         #2つのseedを指定
-        double_seed = random.sample(seeds, 2)
+        double_seed = random.sample(seedstemp, 2)
         np.random.seed(seed=double_seed[0])
         z1 = np.random.randn(1,512*16)
         z1 = np.clip(z1,-1.,1.)
