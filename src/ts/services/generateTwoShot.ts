@@ -1,22 +1,13 @@
-import getImageAsBase64 from "./getImageAsBase64";
-
-const generateTwoShot = (photoSrc: string, girlPath: string, percentage: number) => {
-  const task1 = (basePath: string) => {
+const generateTwoShot = (photoSrc: string, girlSrc: string, percentage: number) => {
+  const task1 = (baseSrc: string, girlSrc: string) => {
     return new Promise<HTMLImageElement[]>((resolve: (value: HTMLImageElement[]) => void) => {
-      const canvas = document.createElement('canvas');
-
-      canvas.width = 1920;
-      canvas.height = 1080;
-
       const photoImg = new Image();
-      photoImg.src = basePath;
+      photoImg.src = baseSrc;
 
       const girlImg = new Image();
-      getImageAsBase64(girlPath)
-      .then((result: string) => {
-        girlImg.src = result;
-        resolve([photoImg, girlImg]);
-      })
+      girlImg.src = girlSrc;
+
+      resolve([photoImg, girlImg]);
     });
   }
 
@@ -114,7 +105,7 @@ const generateTwoShot = (photoSrc: string, girlPath: string, percentage: number)
   }
 
   return (
-    task1(photoSrc)
+    task1(photoSrc, girlSrc)
     .then((result: HTMLImageElement[]) => task2(result))
     .then((result: HTMLImageElement[]) => task3(result))
     .then((result: HTMLImageElement[]) => task4(result))
