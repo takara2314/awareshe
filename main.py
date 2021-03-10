@@ -116,7 +116,7 @@ if __name__ == "__main__":
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     filepath = os.path.dirname(__file__)
     netG = model.Generator().to(device)
-    netG.load_state_dict(torch.load(f'{filepath}/server/model/modelparam_5.pth' , map_location=torch.device(device)))
+    netG.load_state_dict(torch.load(f'{filepath}/server/model/modelparam_6.pth' , map_location=torch.device(device)))
     print(device)
 
     app.run()

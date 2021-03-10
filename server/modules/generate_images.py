@@ -38,7 +38,7 @@ def generate10Image(model,device,seeds):
 
     for z in dims:
         z = torch.from_numpy(z.astype(np.float32)).to(device)
-        dst = model.forward(z, 6)
+        dst = model.forward(z, 7)
         dst = F.interpolate(dst, (256, 256), mode='nearest')
         dst = dst.to('cpu').detach().numpy()
         n, c, h, w = dst.shape
@@ -90,10 +90,15 @@ def makeimgs(weight,model,device):
     vectors = vectors.transpose(1,0,2).reshape(num,8192)
 
     vectors = torch.from_numpy(vectors.astype(np.float32)).to(device)
-    dst = model.forward(vectors, 6)
+    dst = model.forward(vectors[0:15], 7)
     dst = F.interpolate(dst, (256, 256), mode='nearest')
     dst = dst.to('cpu').detach().numpy()
+    dst2 = model.forward(vectors[15:30], 7)
+    dst2 = F.interpolate(dst2, (256, 256), mode='nearest')
+    dst2 = dst2.to('cpu').detach().numpy()
+    dst = np.concatenate([dst,dst2],axis=0)
     n, c, h, w = dst.shape
+    print(dst.shape)
     dst = dst.transpose(0,2,3,1)
 
     dst = np.clip(dst*255., 0, 255).astype(np.uint8)
@@ -126,7 +131,7 @@ def getFrame(weight,model,device):
     vectors = np.array(dim)
 
     vectors = torch.from_numpy(vectors.astype(np.float32)).to(device)
-    dst = model.forward(vectors, 6)
+    dst = model.forward(vectors, 7)
     dst = F.interpolate(dst, (256, 256), mode='nearest')
     dst = dst.to('cpu').detach().numpy()
     n, c, h, w = dst.shape
