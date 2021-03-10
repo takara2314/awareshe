@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import ServiceProps from '../models/ServiceProps';
 import getFrame from '../services/getFrame';
 import GetFramePost from '../models/GetFramePost';
+import getImageAsBase64 from '../services/getImageAsBase64';
 
 const Select30 = (props: ServiceProps) => {
   const videoObj: React.RefObject<HTMLVideoElement> = useRef<HTMLVideoElement>(null);
@@ -102,8 +103,11 @@ const Select30 = (props: ServiceProps) => {
     .then(res => res.text())
     .then(
       (result: string) => {
-        props.setFramePath(result);
-        props.setIsLoadedFrame(true);
+        getImageAsBase64(result)
+        .then((result: string) => {
+          props.setFramePath(result);
+          props.setIsLoadedFrame(true);
+        });
       },
       (error: Error) => {
         console.log(error);

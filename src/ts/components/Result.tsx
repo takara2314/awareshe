@@ -19,7 +19,7 @@ const Result = (props: ServiceProps) => {
         <section className="w-96 h-96 m-auto">
           {props.isLoadedFrame
             ? <img
-                src={`http://localhost:5000/${props.framePath.slice(2)}`}
+                src={props.framePath}
                 alt="完成した彼女の写真"
                 className="w-96"
               />
@@ -38,7 +38,7 @@ const Result = (props: ServiceProps) => {
                   ツーショットを撮る♡
                 </button>
                 <a
-                  href={`http://localhost:5000/${props.framePath.slice(2)}`}
+                  href={props.framePath}
                   download="彼女.png"
                   className="w-60 h-10 text-center leading-10 bg-red-800 hover:bg-red-900 text-white font-bold rounded-xl focus:outline-none transition-all"
                 >
